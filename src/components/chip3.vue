@@ -1,7 +1,5 @@
 <template>
-  <div class="chipBox">
-      <div class="title">title</div>
-      chip1
+  <div style="width:548px" class="chipBox">
   </div>
 </template>
 

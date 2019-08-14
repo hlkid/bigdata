@@ -2,14 +2,14 @@
   <div>
       <headerTop></headerTop>
       <chip1></chip1>
-      <chip1></chip1>
-      <chip1></chip1>
-      <chip1></chip1>
-      <chip1></chip1>
-      <chip1></chip1>
-      <chip1></chip1>
-      <chip1></chip1>
-      <chip1></chip1>
+      <chip2></chip2>
+      <chip3></chip3>
+      <chip4></chip4>
+      <chip5></chip5>
+      <chip6></chip6>
+      <chip7></chip7>
+      <chip8></chip8>
+      <chip9></chip9>
   </div>
 </template>
 

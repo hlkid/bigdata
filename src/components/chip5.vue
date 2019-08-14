@@ -1,7 +1,9 @@
 <template>
   <div class="chipBox">
-      <div class="title">title</div>
-      chip1
+      <div class="title">
+          <div class="titleSlide"></div>累计借还
+        </div>
+      
   </div>
 </template>
 
