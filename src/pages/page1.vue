@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page1 page">
       <headerTop></headerTop>
       <chip1></chip1>
       <chip2></chip2>

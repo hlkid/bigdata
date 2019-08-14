@@ -1,6 +1,6 @@
 <template>
-  <div style="width:548px" class="chipBox">
-      
+  <div style="width:548px;margin-right:0" class="chipBox">
+
   </div>
 </template>
 

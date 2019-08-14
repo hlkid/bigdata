@@ -18,7 +18,12 @@ body{
   width: 1920px;
   height: 1080px;
   background: #04063D;
-  padding: 0 6px 10px 26px;
+  .page1{
+    padding: 0 26px 10px 26px;
+  }
+  .page2{
+    padding: 0 24px 10px 24px;
+  }
   .chipBox{
     float: left;
     width: 637px;
