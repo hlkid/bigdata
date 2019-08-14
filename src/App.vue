@@ -22,7 +22,7 @@ body{
     width: 1000px;
     height: 500px;
     .title{
-      border-left: 20px solid blue;
+      border-left: 30px solid blue;
       font-size: 20px;
     }
   }
