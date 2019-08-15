@@ -1,15 +1,18 @@
 <template>
   <div class="page1 page">
       <headerTop></headerTop>
-      <chip1></chip1>
-      <chip2></chip2>
-      <chip3></chip3>
-      <chip4></chip4>
-      <chip5></chip5>
-      <chip6></chip6>
-      <chip7></chip7>
-      <chip8></chip8>
-      <chip9></chip9>
+      <div class="container clearfloat box-s">
+        <chip1 class="fl"></chip1>
+        <chip2 class="fl"></chip2>
+        <chip3 class="fl"></chip3>
+        <chip4 class="fl"></chip4>
+        <chip5 class="fl"></chip5>
+        <chip6 class="fl"></chip6>
+        <chip7 class="fl"></chip7>
+        <chip8 class="fl"></chip8>
+        <chip9 class="fl"></chip9>
+      </div>
+      
   </div>
 </template>
 
@@ -36,5 +39,8 @@ export default {
 </script>
 
 <style>
-
+.container{
+    width: 100%;
+    clear: both;
+}
 </style>

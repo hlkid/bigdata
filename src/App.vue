@@ -6,38 +6,90 @@
 
 <script>
 export default {
-  name: 'App'
-}
+  name: "App"
+};
 </script>
 <style lang="less">
-body{
+body {
   margin: 0;
   padding: 0;
   background: url(./assets/bigbg.png) no-repeat;
-  background-size: cover;
+  background-size: contain;
   overflow-x: none;
 }
-#app{
+#app {
   width: 1920px;
-  height: 1080px;  
-  .page1{
+  height: 1080px;
+  .container{
     width: 100%;
     box-sizing: border-box;
-    padding: 0 26px 10px 26px;
+    padding: 30px 26px 10px 26px;
   }
-  .page2{
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0 24px 10px 24px;
+  .over {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    -moz-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
   }
-  .chipBox{
+  .fl {
     float: left;
-    width: 637px;
-    height: 298px;
-    border: 1px solid #0F0A7C;
-    margin-right: 20px;
+    display: inline;
+  }
+  .fr {
+    float: right;
+    display: inline;
+  }
+  .clearfloat:after {
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+    zoom: 1;
+  }
+  .clear {
+    clear: both;
+    zoom: 1;
+  }
+  .dis_inBlock {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+  }
+  .dis_block {
+    display: block;
+  }
+  .box-s {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+  }
+
+  .over2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    -moz-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .page1 {
+    width: 100%;
+  }
+  .page2 {
+    width: 100%;
+  }
+  .chipBox {
+    float: left;
+    width: 640px;
+    height: 301px;
     margin-bottom: 20px;
-    .title{
+    background: url(./assets/icon3.png) no-repeat;
+    background-size: contain;
+    .title {
       font-size: 20px;
       margin-left: 19px;
       margin-top: 20px;
@@ -45,10 +97,10 @@ body{
       font-weight: bold;
       color: #fff;
       float: left;
-      .titleSlide{
+      .titleSlide {
         width: 5px;
         height: 16px;
-        background: #34DEFC;
+        background: #34defc;
         float: left;
         margin-right: 8px;
         margin-top: 5px;
