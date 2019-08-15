@@ -83,6 +83,7 @@ body {
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
   }
+  ul{list-style:none;}
   .page1 {
     width: 100%;
   }
