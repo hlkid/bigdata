@@ -50,5 +50,22 @@ export default {
   height:192px;
   margin-top: 34px;
   margin-left: 27px;
+  float: left;
+}
+.msgBox{
+  float: left;
+  color: #fff;
+  margin-left: 29px;
+  margin-top: 40px;
+  .mainTitle{
+    font-size: 21px;
+    line-height: 21px;
+    font-weight: bold;
+  }
+  .subTitle{
+    margin-top: 14px;
+    font-size: 12px;
+    line-height: 12px;
+  }
 }
 </style>
