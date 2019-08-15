@@ -73,6 +73,28 @@ export default {
         color: #fff;
         font-size: 18px;
       }
+      .time{
+        width: 100%;
+        .year{
+          .zuo{
+            ul{
+              li{
+                width: 28px;
+                height: 34px;
+                background-color: #0e6de9;
+                color: #fff;
+                text-align: center;
+                line-height: 34px;
+                border-radius: 5px;
+                font-size: 16px;
+                font-weight: bold;
+                float: left;
+                margin-right: 8px;
+              }
+            }
+          }
+        }
+      }
     }
   }
   .bottom{

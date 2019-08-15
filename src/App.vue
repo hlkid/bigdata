@@ -83,7 +83,15 @@ body {
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
   }
-  ul{list-style:none;}
+  ul{
+    list-style:none;
+    display: block;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    padding-inline-start: 0px;
+  }
   .page1 {
     width: 100%;
   }
