@@ -1,5 +1,5 @@
 <template>
-  <div style="width:548px;margin-right:0" class="chipBox chip3 box-s">
+  <div class="chipBox chip3 box-s">
     <div class="tu clearfloat box-s">
       <img src="../assets/lib.png" alt="">
     </div>
@@ -29,6 +29,7 @@ export default {
 .chip3{
     width: 548px !important;
     height: 310px;
+    margin-right:0;
     padding: 25px 45px;
     background: url(../assets/icon4.png) no-repeat !important;
     background-size: cover;

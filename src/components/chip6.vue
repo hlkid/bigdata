@@ -49,9 +49,21 @@
         <div class="zuo clearfloat fl box-s">
           开馆时间
         </div>
+        <div class="you clearfloat fl box-s">
+          <p class="tit over">
+              <span class="fl">周二至周日</span>
+              <span class="fl ml18">09：00~21：00</span>
+          </p>
+          <p class="fu-tit over">
+            周一闭馆，双休日、国家法定节假日正常开放
+          </p>
+        </div>
       </div>
       <div class="right clearfloat fr box-s">
-
+          <div class="tu clearfloat box-s fl">
+            <img src="../assets/1.jpg" alt="">
+          </div>
+          <p class="tit fl">XXX公众号</p>
       </div>
     </div>
   </div>
@@ -148,6 +160,7 @@ export default {
     padding: 13px 30px;
     .left{
       width: 360px;
+      margin-top: 14px;
       .zuo{
         width:62px;
         height:62px;
@@ -157,6 +170,54 @@ export default {
         font-size: 16px;
         font-weight: bold;
         padding: 12px 14px;
+      }
+      .you{
+        width: 270px;
+        margin-left: 15px;
+        margin-top: 10px;
+        .tit{
+          width: 100%;
+          font-size: 18px;
+          color: #fff;
+          float: left;
+          .ml18{
+            margin-left: 18px;
+          }
+        }
+        .fu-tit{
+          width: 100%;
+          font-size: 12px;
+          color: #cbccce;
+          float: left;
+          line-height: 20px;
+        }
+      }
+    }
+    .right{
+      width: 70px;
+      height: 86px;
+      overflow: hidden;
+      border-radius: 3px;
+      background-color: #fff;
+
+      .tu{
+        width: 100%;
+        height: 68px;
+        padding: 4px;
+
+        img{
+          width: 100%;
+        }
+      }
+
+      .tit{
+        width: 100%;
+        height: 18px;
+        background-color: #00a2ff;
+        text-align:center;
+        line-height: 18px;
+        font-size: 10px;
+        color: #fff;
       }
     }
   }
