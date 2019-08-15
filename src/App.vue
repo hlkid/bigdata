@@ -13,15 +13,21 @@ export default {
 body{
   margin: 0;
   padding: 0;
+  background: url(./assets/bigbg.png) no-repeat;
+  background-size: cover;
+  overflow-x: none;
 }
 #app{
   width: 1920px;
-  height: 1080px;
-  background: #04063D;
+  height: 1080px;  
   .page1{
+    width: 100%;
+    box-sizing: border-box;
     padding: 0 26px 10px 26px;
   }
   .page2{
+    width: 100%;
+    box-sizing: border-box;
     padding: 0 24px 10px 24px;
   }
   .chipBox{
