@@ -28,7 +28,7 @@ export default {
     position: relative;
     color: #fff;
     text-align: center;
-    font-size: 48px;
+    font-size: 46px;
     font-weight: bold;
     line-height: 80px;
 }
