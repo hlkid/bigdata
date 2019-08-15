@@ -18,8 +18,8 @@ body {
   overflow-x: none;
 }
 #app {
-  width: 1920px;
-  height: 1080px;
+  // width: 1920px;
+  // height: 1080px;
   .container{
     width: 100%;
     box-sizing: border-box;
