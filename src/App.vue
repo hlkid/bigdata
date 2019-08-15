@@ -76,6 +76,13 @@ body {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
+  p {
+    display: block;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+  }
   .page1 {
     width: 100%;
   }
@@ -88,7 +95,7 @@ body {
     height: 301px;
     margin-bottom: 20px;
     background: url(./assets/icon3.png) no-repeat;
-    background-size: contain;
+    background-size: cover;
     .title {
       font-size: 20px;
       margin-left: 19px;
