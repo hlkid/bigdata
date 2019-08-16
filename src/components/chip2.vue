@@ -21,6 +21,7 @@
         <div class="enterTitle">今日进馆人次</div>
          
       </div>
+      <div id="myChart" :style="{width: '500px', height: '250px'}"></div>
   </div>
 </template>
 
@@ -41,10 +42,25 @@ export default {
         }
     },
     mounted(){
-
+        this.drawLine();
     },
     methods:{
-
+        drawLine(){
+        // 基于准备好的dom，初始化echarts实例
+        let myChart = this.$echarts.init(document.getElementById('myChart'))
+        // 绘制图表
+        myChart.setOption({
+            xAxis: {
+                data: ["8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00"]
+            },
+            yAxis: {},
+            series: [{
+                name: '',
+                type: 'line',
+                data: [116, 120, 336, 210, 170, 240,110,330,120,130,140]
+            }]
+        });
+    }
     }
 }
 </script>
