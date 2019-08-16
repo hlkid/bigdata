@@ -14,7 +14,7 @@ body {
   margin: 0;
   padding: 0;
   background: url(./assets/bigbg.png) no-repeat;
-  background-size: contain;
+  background-size: cover;
   overflow-x: none;
 }
 #app {
