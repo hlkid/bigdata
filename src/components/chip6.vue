@@ -71,17 +71,177 @@
 
 <script>
 import $ from "jquery";
-//	插件说明
-//	时间：	{时段}{年}{月}{日}{时}{分}{秒}{周}
-//	天气： {城市}{天气}{气温}{风向}{风级}{图标}{最高气温}{最低气温}{}{}{}{}{}{}{}
-//	图标：	自己去选取样式网址，https://www.tianqiapi.com/diy.php?style=ya
+    $.fn.leoweather = function (opts) {
+        var defaults = {
+            city: '',
+            format: '{年}/{月}/{日} {时}:{分}:{秒} 星期{周} <b>{城市}天气</b> <img src="https://xuesax.com/tianqiapi/skin/sogou/{图标}.png" /> {天气} {最低气温}~{最高气温} {风向} {风级}'
+        };
+        var options = $.extend(defaults, opts);
+        return this.each(function () {
+            var obj = $(this),
+                weather = new Array(),
+                format = options.format,
+                url = 'https://www.tianqiapi.com/api/?version=v1&city=' + options.city,
+                model = format.match(/\{.*?\}/g),
+                action = new Array();
+            for (var i = 0; model.length > i; i++) {
+                action[i] = model[i].replace(/{/g, '').replace(/}/g, '');
+            };
+            var valid = action.toString();
+            $.ajax({
+                url: url,
+                dataType: "json",
+                success: function (w) {
+                    weather['city'] = w.city;
+                    weather['data'] = w.data;
+                    setTimer();
+                    console.log(weather);
+                }
+            });
 
-$('#weather1').leoweather({
-    format: '<div class="mid">' +
-        '<div class="fl"><img src="https://xuesax.com/tianqiapi/skin/cake/{图标}.png" /></div>' +
-        '<div class="fr"><p>{最低气温}~{最高气温}</p><samp></samp><p>{年}/{月}/{日} {时}:{分}:{秒}</p></div>' +
-        '</div>'
-});
+            function getContent(type) {
+                if (type == '城市') {
+                    return weather.city;
+                }
+                var day = /\+(\d).*?/g.exec(type);
+                if (day != null) {
+                    day = parseInt(day[1]);
+                    if (day > 6) {
+                        day = 0;
+                    }
+                } else {
+                    day = 0;
+                }
+                if (/日期.*?/g.exec(type) !== null) {
+                    if (/人性化日期.*?/g.exec(type) !== null) {
+                        return weather.data[day].day;
+                    }
+                    return weather.data[day].date;
+                }
+                if (/天气.*?/g.exec(type) !== null) {
+                    return weather.data[day].wea;
+                }
+                if (/图标.*?/g.exec(type) !== null) {
+                    return weather.data[day].wea_img;
+                }
+                if (/当前气温.*?/g.exec(type) !== null) {
+                    return weather.data[day].tem;
+                }
+                if (/最高气温.*?/g.exec(type) !== null) {
+                    return weather.data[day].tem1;
+                }
+                if (/最低气温.*?/g.exec(type) !== null) {
+                    return weather.data[day].tem2;
+                }
+                if (/风向.*?/g.exec(type) !== null) {
+                    return weather.data[day].win[0];
+                }
+                if (/风级.*?/g.exec(type) !== null) {
+                    return weather.data[day].win_speed;
+                }
+                if (/空气指数.*?/g.exec(type) !== null) {
+                    return weather.data[day].air;
+                }
+                if (/空气等级.*?/g.exec(type) !== null) {
+                    return weather.data[day].air_level;
+                }
+                if (/空气提示.*?/g.exec(type) !== null) {
+                    return weather.data[day].air_tips;
+                }
+                if (/紫外线指数.*?/g.exec(type) !== null) {
+                    return weather.data[day].index[0].level;
+                }
+                if (/紫外线提示.*?/g.exec(type) !== null) {
+                    return weather.data[day].index[0].desc;
+                }
+                if (/穿衣指数.*?/g.exec(type) !== null) {
+                    return weather.data[day].index[3].level;
+                }
+                if (/穿衣提示.*?/g.exec(type) !== null) {
+                    return weather.data[day].index[3].desc;
+                }
+                if (/洗车指数.*?/g.exec(type) !== null) {
+                    return weather.data[day].index[4].level;
+                }
+                if (/洗车提示.*?/g.exec(type) !== null) {
+                    return weather.data[day].index[4].desc;
+                }
+                if (type == '年') {
+                    var today = new Date();
+                    var YY = today.getYear();
+                    if (YY < 1900) YY = YY + 1900;
+                    return '<span id="weather_YY">' + YY + '</span>'
+                }
+                if (type == '月') {
+                    var today = new Date();
+                    var MM = today.getMonth() + 1;
+                    if (MM < 10) MM = '0' + MM;
+                    return '<span id="weather_MM">' + MM + '</span>'
+                }
+                if (type == '日') {
+                    var today = new Date();
+                    var DD = today.getDate();
+                    if (DD < 10) DD = '0' + DD;
+                    return '<span id="weather_DD">' + DD + '</span>'
+                }
+                if (type == '时') {
+                    var today = new Date();
+                    var hh = today.getHours();
+                    if (hh < 10) hh = '0' + hh;
+                    return '<span id="weather_hh">' + hh + '</span>'
+                }
+                if (type == '分') {
+                    var today = new Date();
+                    var mm = today.getMinutes();
+                    if (mm < 10) mm = '0' + mm;
+                    return '<span id="weather_mm">' + mm + '</span>'
+                }
+                if (type == '秒') {
+                    var today = new Date();
+                    var ss = today.getSeconds();
+                    if (ss < 10) ss = '0' + ss;
+                    return '<span id="weather_ss">' + ss + '</span>'
+                }
+            }
+
+            function setTimer() {
+                var timer = 100;
+                for (var i = 0; action.length > i; i++) {
+                    var str = format.replace(/\{(.*?)\}/g, function (a, b) {
+                        var fun = b.replace(/{/g, '').replace(/}/g, '');
+                        return getContent(fun);
+                    })
+                };
+                obj.html(str);
+                var ClockTimer = setInterval(update, timer)
+            }
+
+            function update() {
+                var today = new Date();
+                var YY = today.getYear();
+                if (YY < 1900) YY = YY + 1900;
+                var MM = today.getMonth() + 1;
+                if (MM < 10) MM = '0' + MM;
+                var DD = today.getDate();
+                if (DD < 10) DD = '0' + DD;
+                var hh = today.getHours();
+                if (hh < 10) hh = '0' + hh;
+                var mm = today.getMinutes();
+                if (mm < 10) mm = '0' + mm;
+                var ss = today.getSeconds();
+                if (ss < 10) ss = '0' + ss;
+                var ww = today.getDay();
+                $('#weather_YY').html(YY);
+                $('#weather_MM').html(MM);
+                $('#weather_DD').html(DD);
+                $('#weather_hh').html(hh);
+                $('#weather_mm').html(mm);
+                $('#weather_ss').html(ss);
+                $('#weather_ww').html(ww);
+            }
+        });
+    };
+
 export default {
     data(){
         return{
@@ -89,7 +249,17 @@ export default {
         }
     },
     mounted(){
+      //	插件说明
+      //	时间：	{时段}{年}{月}{日}{时}{分}{秒}{周}
+      //	天气： {城市}{天气}{气温}{风向}{风级}{图标}{最高气温}{最低气温}{}{}{}{}{}{}{}
+      //	图标：	自己去选取样式网址，https://www.tianqiapi.com/diy.php?style=ya
 
+      $('#weather1').leoweather({
+          format: '<div class="mid clearfloat box-s">' +
+              '<div class="fl left"><img src="https://xuesax.com/tianqiapi/skin/cake/{图标}.png" /></div>' +
+              '<div class="fr right"><p>{最低气温}~{最高气温}</p><samp></samp><p>{年}/{月}/{日} {时}:{分}:{秒}</p></div>' +
+              '</div>'
+      });
     },
     methods:{
 
@@ -97,7 +267,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .chip6{
   width: 548px !important;
   margin-right:0;
@@ -235,52 +405,44 @@ export default {
   }
 }
 .skin2 {
-            display: inline-block;
-            background: #6495ED;
-        }
+    display: inline-block;
+    width: 100%;
+    height: 48px;
+    .mid {
+        overflow: hidden;
+        width: 345px;
+        height: 48px;
+        margin: 0 auto;
+        line-height: 48px;
 
-        .skin2 .mid {
-            overflow: hidden;
-            padding: 20px;
-        }
-
-        .skin2 .mid .fl {
-            float: left;
-        }
-
-        .skin2 .mid .fl img {
+        .left{
+          img{
             height: 30px;
+            margin-top: 9px;
+          }
         }
 
-        .skin2 .mid .fr {
-            float: right;
-        }
-
-        .skin2 .mid .fr h2 {
-            font-size: 20px;
-            line-height: 28px;
-            margin: 0;
-        }
-
-        .skin2 .mid .fr p {
+        .right{
+          p{
             font-size: 17px;
             height: 18px;
-            line-height: 30px;
             margin: 0;
             float: left;
             color: #fff;
-            padding: 0 20px;
-        }
+            padding: 0 15px;
 
-        .skin2 .mid .fr samp {
+            &::last-child {
+                font-size: 14px;
+            }
+          }
+          samp{
             border-right: 1px solid #fff;
             float: left;
             height: 18px;
             display: block;
-            margin-top: 6px;
+            margin-top: 15px;
+          }
         }
-
-        .skin2 .mid .fr p:last-child {
-            font-size: 14px;
-        }
+    }
+}
 </style>
