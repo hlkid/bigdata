@@ -1,7 +1,7 @@
 <template>
   <div class="chipBox chip6">
     <div class="top clearfloat box-s fl">
-
+<div class="skin2" id="weather1"></div>
     </div>
     <div class="middle clearfloat box-s fl">
       <div class="left clearfloat fl">
@@ -70,6 +70,18 @@
 </template>
 
 <script>
+import $ from "jquery";
+//	插件说明
+//	时间：	{时段}{年}{月}{日}{时}{分}{秒}{周}
+//	天气： {城市}{天气}{气温}{风向}{风级}{图标}{最高气温}{最低气温}{}{}{}{}{}{}{}
+//	图标：	自己去选取样式网址，https://www.tianqiapi.com/diy.php?style=ya
+
+$('#weather1').leoweather({
+    format: '<div class="mid">' +
+        '<div class="fl"><img src="https://xuesax.com/tianqiapi/skin/cake/{图标}.png" /></div>' +
+        '<div class="fr"><p>{最低气温}~{最高气温}</p><samp></samp><p>{年}/{月}/{日} {时}:{分}:{秒}</p></div>' +
+        '</div>'
+});
 export default {
     data(){
         return{
@@ -222,4 +234,53 @@ export default {
     }
   }
 }
+.skin2 {
+            display: inline-block;
+            background: #6495ED;
+        }
+
+        .skin2 .mid {
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .skin2 .mid .fl {
+            float: left;
+        }
+
+        .skin2 .mid .fl img {
+            height: 30px;
+        }
+
+        .skin2 .mid .fr {
+            float: right;
+        }
+
+        .skin2 .mid .fr h2 {
+            font-size: 20px;
+            line-height: 28px;
+            margin: 0;
+        }
+
+        .skin2 .mid .fr p {
+            font-size: 17px;
+            height: 18px;
+            line-height: 30px;
+            margin: 0;
+            float: left;
+            color: #fff;
+            padding: 0 20px;
+        }
+
+        .skin2 .mid .fr samp {
+            border-right: 1px solid #fff;
+            float: left;
+            height: 18px;
+            display: block;
+            margin-top: 6px;
+        }
+
+        .skin2 .mid .fr p:last-child {
+            font-size: 14px;
+        }
 </style>

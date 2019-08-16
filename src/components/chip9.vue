@@ -5,7 +5,7 @@
          <p class="tit fl">宣传视频</p>
       </div>   
       <div class="video clearfloat">
-        <video :src="videoSrc" width="365" height="205" autoplay controls></video>
+        <video :src="videoSrc" width="365" height="205" autoplay controls loop></video>
       </div>
   </div>
 </template>
