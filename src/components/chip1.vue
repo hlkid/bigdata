@@ -14,10 +14,26 @@
         <div class="txt"> 张</div>
       </div>
       <div class="canvasBox canvasLeft">
-        <canvas id="canvasl" width="150" height="150"></canvas>
+        <canvas id="canvasl1" width="160" height="160"></canvas>
+        <canvas id="canvasl2" width="160" height="160"></canvas>
+        <canvas id="canvasl3" width="160" height="160"></canvas>
+        <canvas id="canvasl4" width="160" height="160"></canvas>
+      </div>
+      <div class="leftData">
+        <div class="list">09 - 18岁 <b>{{rate1}}</b></div>
+        <div class="list">19 - 30岁 <b>{{rate2}}</b></div>
+        <div class="list">31 - 50岁 <b>{{rate3}}</b></div>
+        <div class="list">51 - 60岁 <b>{{rate4}}</b></div>
       </div>
       <div class="canvasBox canvasRight">
-        <canvas id="canvasr" width="150" height="150"></canvas>
+        <canvas id="canvasr1" width="150" height="150"></canvas>
+        <canvas id="canvasr2" width="150" height="150"></canvas>
+        <img class="boy iconImg" src="../assets/boy.png">
+        <img class="gril iconImg" src="../assets/gril.png">
+        <div class="canvasRightTxt">
+          <div class="rate">{{rateR}}</div>
+          <div class="txt">{{txtR}}</div>
+        </div>
       </div>
       
   </div>
@@ -28,57 +44,103 @@ export default {
     data(){
         return{
           cardAll:"16,523",
-          cardNow:"13"
+          cardNow:"13",
+          rateR:"54%",
+          txtR:"男性读者",
+          rate1:"36.4%",
+          rate2:"23.2%",
+          rate3:"12.4%",
+          rate4:"40%",
         }
     },
     mounted(){
-      this.canvasDrawL();
-      this.canvasDrawR();
+      //0-18周岁  参数依次半径、颜色、百分比
+      this.canvasDrawL(1,70,"#00FFCB",62.5);
+      //19-30周岁  参数依次半径、颜色、百分比
+      this.canvasDrawL(2,55,"#FBD70C",38.2);
+      //19-30周岁  参数依次半径、颜色、百分比
+      this.canvasDrawL(3,40,"#0E6DE9",32.4);
+      //19-30周岁  参数依次半径、颜色、百分比
+      this.canvasDrawL(4,25,"#34DEFC",40);
+
+      //右侧画布参数依次传值为 1/2（男/女） 比例值
+      this.canvasDrawR(1,54);
+      //右侧画布参数依次传值为 1/2（男/女） 比例值
+      this.canvasDrawR(2,46);
     },
     methods:{
       //左侧画布
-      canvasDrawL:function(){
-        var ctx = canvasl.getContext('2d');//生成画笔对象
-        ctx.lineWidth = 5;//线条的宽度
+      canvasDrawL:function(index,r,color,rate){
+        switch (index) {
+          case 1:
+            var ctx = canvasl1.getContext('2d');//生成画笔对象
+            break;
+          case 2:
+            var ctx = canvasl2.getContext('2d');//生成画笔对象
+            break;
+            case 3:
+            var ctx = canvasl3.getContext('2d');//生成画笔对象
+            break;
+            case 4:
+            var ctx = canvasl4.getContext('2d');//生成画笔对象
+            break;
+          default:
+            break;
+        }
+        
+        ctx.lineWidth = 8;//线条的宽度
         ctx.font = '60px SimHei';//字体样式
-        var start = 40, end = -90;//起止点
-        ctx.clearRect(0, 0, 150, 150);//清除画布已有内容
+        var start = -90, end = this.countAngleFun(rate);//起止点
+        ctx.clearRect(0, 0, 160, 160);//清除画布已有内容
         //绘制圆弧
         ctx.beginPath();//开始绘制路径
-        ctx.arc(150, 150, 50, start * Math.PI / 180, end * Math.PI / 180);//绘制一个弧线
-        if (end - start < 120) {    //1/3范围内 红色
-            ctx.strokeStyle = 'red';//轮廓/描边的颜色
-            ctx.fillStyle = 'red';//填充颜色
-        } else if (end - start < 240) {
-            ctx.strokeStyle = 'orange';
-            ctx.fillStyle = 'orange';
-        } else {
-            ctx.strokeStyle = 'green';
-            ctx.fillStyle = 'green';
-        }
+        ctx.arc(75, 75, r, start * Math.PI / 180, end * Math.PI / 180,true);//绘制一个弧线
+        ctx.strokeStyle = color;//轮廓/描边的颜色
+        ctx.fillStyle = color;//填充颜色
         ctx.stroke();//对一条路径描边
       },
       //右侧画布
-      canvasDrawR:function(){
-        var ctx = canvasr.getContext('2d');//生成画笔对象
-        ctx.lineWidth = 5;//线条的宽度
+      canvasDrawR:function(sex,rate){
+        if(sex==1){
+          var ctx = canvasr1.getContext('2d');//生成画笔对象
+        }else{
+          var ctx = canvasr2.getContext('2d');//生成画笔对象
+        }
+        
+        
         ctx.font = '60px SimHei';//字体样式
-        var start = 40, end = -90;//起止点
+        var start = -40, end = this.countCicleFun(sex,rate);//起止点
         ctx.clearRect(0, 0, 150, 150);//清除画布已有内容
         //绘制圆弧
-        ctx.beginPath();//开始绘制路径
-        ctx.arc(150, 150, 50, start * Math.PI / 180, end * Math.PI / 180);//绘制一个弧线
-        if (end - start < 120) {    //1/3范围内 红色
-            ctx.strokeStyle = 'red';//轮廓/描边的颜色
-            ctx.fillStyle = 'red';//填充颜色
-        } else if (end - start < 240) {
-            ctx.strokeStyle = 'orange';
-            ctx.fillStyle = 'orange';
-        } else {
-            ctx.strokeStyle = 'green';
-            ctx.fillStyle = 'green';
+        if(sex==1){
+          ctx.lineWidth = 10;//线条的宽度
+          ctx.arc(75, 75, 63, start * Math.PI / 180, end * Math.PI / 180,true);//绘制一个弧线
+          ctx.strokeStyle = "#AC4ED3";//轮廓/描边的颜色
+          ctx.fillStyle = "#AC4ED3";//填充颜色
+          ctx.stroke();//对一条路径描边
+        }else{
+          ctx.lineWidth = 17;//线条的宽度
+          ctx.arc(75, 75, 67, start * Math.PI / 180, end * Math.PI / 180,false);//绘制一个弧线
+          ctx.strokeStyle = "#0E6DE9";//轮廓/描边的颜色
+          ctx.fillStyle = "#0E6DE9";//填充颜色
+          ctx.stroke();//对一条路径描边
         }
         ctx.stroke();//对一条路径描边
+      },
+      //计算圆形的度数——num为百分数（百分之几）——用于左侧函数
+      countAngleFun:function(num){
+        let endPoint=(num/100)*360;
+        return Number(-90-endPoint)
+      },
+      //计算圆形的度数——num为百分数（百分之几）——用于右侧函数
+      countCicleFun:function(sex,rate){
+        let endPoint=(rate/100)*360;
+        if(sex==1){
+          return Number(-45-endPoint)
+        }else{
+          return Number(-45+endPoint)
+        }
+        
       }
     }
 }
@@ -116,9 +178,61 @@ export default {
   }
   .canvasLeft{
     left: 95px;
+    canvas{
+      position: absolute;
+      left: 0;
+    }
+  }
+  .leftData{
+    position: absolute;
+    left: 178px;
+    top: 95px;
+    .list{
+      font-size: 12px;
+      color: #fff;
+      line-height: 15px;
+      b{
+        margin-left: 8px;
+        color: #77FFFF;
+        font-size: 12px;
+        font-weight: normal;
+      }
+    }
   }
   .canvasRight{
     left: 377px;
+    canvas{
+      position: absolute;
+      left: 0;
+    }
+    .canvasRightTxt{
+      width: 80px;
+      height: 60px;
+      position: absolute;
+      text-align: center;
+      top: 45px;
+      left: 35px;
+      .rate{
+        color: #00FFCB;
+        font-size: 24px;
+        font-weight: bold;
+      }
+      .txt{
+        font-size: 18px;
+        color: #fff;
+      }
+    }
+    .iconImg{
+      position: absolute;
+    }
+    .boy{
+      top: 90px;
+      left: 122px;
+    }
+    .gril{
+      top: 28px;
+      left: -12px;
+    }
   }
 }
 </style>

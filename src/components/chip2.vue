@@ -207,7 +207,7 @@ export default {
               dataIndex: faultByHourIndex
           });
           faultByHourIndex++;
-          console.info(faultByHourIndex)
+          // console.info(faultByHourIndex)
           if(faultByHourIndex>=_this.xArr.length){
             faultByHourIndex=0
           }
