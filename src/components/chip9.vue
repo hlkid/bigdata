@@ -30,7 +30,7 @@ export default {
   .chip9{
     width: 548px !important;
     height: 310px;
-    margin-right:0;
+    margin-right:0 !important;
     padding: 25px 20px;
     background: url(../assets/icon4.png) no-repeat !important;
     background-size: cover;

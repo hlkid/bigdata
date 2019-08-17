@@ -23,7 +23,7 @@ body {
   .container{
     width: 100%;
     box-sizing: border-box;
-    padding: 30px 26px 10px 26px;
+    padding: 0 19px;
   }
   .over {
     overflow: hidden;
@@ -105,6 +105,7 @@ body {
     margin-bottom: 20px;
     background: url(./assets/icon3.png) no-repeat;
     background-size: cover;
+    margin-right: 18px;
     .title {
       font-size: 20px;
       margin-left: 19px;

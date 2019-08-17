@@ -26,11 +26,13 @@ export default {
 
 <style lang="less" scoped>
 .chip10{
-    width: 1304px;
-    height: 938px;
-    border: 1px solid #0F0A7C;
+    width: 1301px;
+    height: 932px;
+    background: url(../assets/icon5.png) no-repeat;
+    background-size: cover;
     float: left;
     margin-right: 12px;
+    margin-left: 26px;
     .view{
         border-radius: 10px;
         width: 409px;
@@ -38,6 +40,7 @@ export default {
         float: left;
         margin-bottom: 11px;
         margin-right: 15px;
+        overflow: hidden;
         img{
             border-radius: 10px;
             width: 100%;

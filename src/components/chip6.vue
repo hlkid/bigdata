@@ -270,20 +270,20 @@ export default {
 <style lang="less">
 .chip6{
   width: 548px !important;
-  margin-right:0;
+  margin-right:0 !important;
   height:301px;
   background: none !important;
-
+  margin-bottom: 14px !important;
   .top{
     width: 100%;
-    border: 1px solid #06076B;
+    border: 1px solid #0d2573;
     height: 48px;
   }
   .middle{
     width: 100%;
-    border: 1px solid #06076B;
+    border: 1px solid #0d2573;
     height: 110px;
-    margin-top: 11px;
+    margin-top: 13px;
     padding: 15px 30px;
     .left{
       width: 360px;
@@ -336,9 +336,9 @@ export default {
   }
   .bottom{
     width: 100%;
-    border: 1px solid #06076B;
+    border: 1px solid #0d2573;
     height: 116px;
-    margin-top: 11px;
+    margin-top: 13px;
     padding: 13px 30px;
     .left{
       width: 360px;
