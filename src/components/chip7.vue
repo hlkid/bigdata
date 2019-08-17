@@ -10,7 +10,7 @@
     </div>
     <div class="picbox" v-if="list.length>0">
       <div v-for="(item,index) in list" :key="index" class="item">
-        <div class="num">{{nowpage*4+index+1}}</div>
+        <div class="num rotatesimg">{{nowpage*4+index+1}}</div>
         <img :src="item.imgSrc" class="rotates rotatesimg" />
         <div class="txtBox">
           <div class="txtTitle over">{{item.title}}</div>
@@ -171,6 +171,7 @@ export default {
   margin-top: 24px;
   float: left;
   margin-left: 47px;
+  transition: all 1s;
   .item{
     width: 104px;
     height: 212px;
@@ -202,7 +203,7 @@ export default {
       .txtTitle{
         font-size: 12px;
         font-weight: bold;
-        margin-top: 8px;
+        margin-top: 5px;
         margin-bottom: 5px;
         text-align: center;
       }
@@ -210,9 +211,9 @@ export default {
         color: #CBCCCD;
         text-align: left;
         font-size: 9px;
-        margin-bottom: 3px;
         width: 100%;
         float: left;
+        transform:scale(0.8);
       }
     }
   }

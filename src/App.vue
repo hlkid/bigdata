@@ -16,6 +16,7 @@ body {
   background: url(./assets/bigbg.png) no-repeat;
   background-size: cover;
   overflow-x: none;
+  -webkit-text-size-adjust:none
 }
 #app {
   // width: 1920px;
