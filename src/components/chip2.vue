@@ -1,89 +1,177 @@
 <template>
   <div class="chipBox">
-      <div class="title">
-          <div class="titleSlide"></div>累计进馆
-        </div>
-      <div class="numberTitle">
-        <div class="num">{{num1}}</div>
-        <div class="num">{{num2}}</div>
-        <div class="num">{{num3}}</div>
-        <div class="num tips">,</div>
-        <div class="num">{{num4}}</div>
-        <div class="num">{{num5}}</div>
-        <div class="num">{{num6}}</div>
-        <div class="num tips">,</div>
-        <div class="num">{{num7}}</div>
-        <div class="num">{{num8}}</div>
-        <div class="num">{{num9}}</div>
-      </div>
-      <div class="enterBox"> 
-        <div class="num">{{enterNum}}</div>
-        <div class="enterTitle">今日进馆人次</div>
-         
-      </div>
-      <div id="myChart" :style="{width: '500px', height: '250px'}"></div>
+    <div class="title">
+      <div class="titleSlide"></div>累计进馆
+    </div>
+    <div class="numberTitle">
+      <div class="num">{{num1}}</div>
+      <div class="num">{{num2}}</div>
+      <div class="num">{{num3}}</div>
+      <div class="num tips">,</div>
+      <div class="num">{{num4}}</div>
+      <div class="num">{{num5}}</div>
+      <div class="num">{{num6}}</div>
+      <div class="num tips">,</div>
+      <div class="num">{{num7}}</div>
+      <div class="num">{{num8}}</div>
+      <div class="num">{{num9}}</div>
+    </div>
+    <div class="enterBox">
+      <div class="num">{{enterNum}}</div>
+      <div class="enterTitle">今日进馆人次</div>
+
+    </div>
+    <div id="myChart2"></div>
   </div>
 </template>
 
 <script>
-export default {
-    data(){
-        return{
-          num1:"0",
-          num2:"1",
-          num3:"2",
-          num4:"2",
-          num5:"6",
-          num6:"2",
-          num7:"4",
-          num8:"9",
-          num9:"8",
-          enterNum:1500
+var option1 = {
+  backgroundColor: "rgba(0,0,0,0)", //设置背景颜色
+  title: {},
+  legend: {},
+
+  //  图表距边框的距离,可选值：'百分比'¦ {number}（单位px）
+  grid: {
+    top: "20px",
+    left: "0px",
+    right: "20px",
+    bottom: "10px",
+    containLabel: true
+  },
+
+  xAxis: {
+    name: "", //设置x轴文字
+    type: "category",
+    splitLine: {
+      show: false,
+      //  改变轴线颜色
+      lineStyle: {
+        show: false,
+        // 使用深浅的间隔色
+        color: ["#9494AC"]
+      }
+    },
+    axisLine: {
+      lineStyle: {
+        // 设置x轴颜色
+        color: "#9494AC"
+      }
+    },
+    // 设置X轴数据旋转倾斜
+    axisLabel: {
+      rotate: 0, // 旋转角度
+      interval: 0 //设置X轴数据间隔几个显示一个，为0表示都显示
+    },
+    // boundaryGap值为false的时候，折线第一个点在y轴上
+    // boundaryGap: false,
+    data: [
+      "8:00",
+      "9:00",
+      "10:00",
+      "11:00",
+      "12:00",
+      "13:00",
+      "14:00",
+      "15:00",
+      "16:00",
+      "17:00",
+      "18:00"
+    ]
+  },
+
+  yAxis: {
+    show: true, //控制y轴的隐藏和显示
+    name: "",
+    type: "value",
+    splitLine: {
+      show: true,
+      //  改变轴线颜色
+      lineStyle: {
+        // 使用深浅的间隔色
+        color: ["#0D1F6E"]
+      }
+    },
+    axisLine: {
+      lineStyle: {
+        show: false,
+        // 设置y轴颜色
+        color: "#9494AC"
+      }
+    }
+  },
+  series: [
+    {
+      data: [116, 120, 336, 210, 170, 240, 110, 330, 120, 130, 140],
+      type: "line",
+      color: "#0E6DE9",
+      // 设置折线上圆点大小
+      symbolSize: 8,
+      itemStyle: {
+        normal: {
+          // 拐点上显示数值
+          label: {
+            show: false
+          },
+          borderColor: "#0E6DE9", // 拐点边框颜色
+          lineStyle: {
+            width: 3, // 设置线宽
+            type: "solid" //'dotted'虚线 'solid'实线
+          }
         }
-    },
-    mounted(){
-        this.drawLine();
-    },
-    methods:{
-        drawLine(){
-        // 基于准备好的dom，初始化echarts实例
-        let myChart = this.$echarts.init(document.getElementById('myChart'))
-        // 绘制图表
-        myChart.setOption({
-            xAxis: {
-                data: ["8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00"]
-            },
-            yAxis: {},
-            series: [{
-                name: '',
-                type: 'line',
-                data: [116, 120, 336, 210, 170, 240,110,330,120,130,140]
-            }]
-        });
+      }
     }
+  ]
+};
+
+export default {
+  data() {
+    return {
+      num1: "0",
+      num2: "1",
+      num3: "2",
+      num4: "2",
+      num5: "6",
+      num6: "2",
+      num7: "4",
+      num8: "9",
+      num9: "8",
+      enterNum: 1500
+    };
+  },
+  mounted() {
+    this.drawLine();
+  },
+  methods: {
+    drawLine() {
+      // 基于准备好的dom，初始化echarts实例
+      let myChart = this.$echarts.init(document.getElementById("myChart2"));
+      // 绘制图表
+      myChart.setOption(option1);
     }
-}
+  }
+};
 </script>
 
 <style lang="less" scoped>
-.numberTitle{
+.numberTitle {
   margin-top: 22px;
   margin-right: 43px;
   float: right;
   color: #fff;
   line-height: 40px;
-    text-align: center;
-    font-weight: bold;
-  .num{
-    width:33px;
-    height:40px;
-    border:2px solid rgba(18,56,182,1);
-    border-radius:5px;
+  text-align: center;
+  font-weight: bold;
+  .num {
+    width: 33px;
+    height: 40px;
+    border: 2px solid rgba(18, 56, 182, 1);
+    border-radius: 5px;
     float: left;
     margin-left: 4px;
     font-size: 30px;
   }
-  .tips{
+  .tips {
     width: 10px;
     height: 40px;
     border: none;
@@ -92,7 +180,7 @@ export default {
     margin-left: 6px;
   }
 }
-.enterBox{
+.enterBox {
   float: right;
   color: #fff;
   font-size: 12px;
@@ -100,17 +188,23 @@ export default {
   margin-right: 44px;
   text-align: right;
   margin-top: 23px;
-  .enterTitle{
+  .enterTitle {
     line-height: 21px;
     float: right;
   }
-  .num{
+  .num {
     font-size: 21px;
     line-height: 21px;
     font-weight: bold;
-    color: #FBD70C;
+    color: #fbd70c;
     margin-left: 11px;
     float: right;
   }
+}
+#myChart2 {
+  width: 546px;
+  height: 185px;
+  margin-left: 51px;
+  float: left;
 }
 </style>
