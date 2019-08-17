@@ -132,7 +132,7 @@ export default {
         }
       }
       },50)
-      console.info(this.nowpage,this.allpage)
+      // console.info(this.nowpage,this.allpage)
       if(Number(tempPage+1)>=Number(this.allpage)){
         this.nowpage=0
       }else{

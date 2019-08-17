@@ -65,8 +65,7 @@ var option1 = {
     },
     // boundaryGap值为false的时候，折线第一个点在y轴上
     // boundaryGap: false,
-    data: [
-      "8:00",
+    data: ["8:00",
       "9:00",
       "10:00",
       "11:00",
@@ -76,8 +75,7 @@ var option1 = {
       "15:00",
       "16:00",
       "17:00",
-      "18:00"
-    ]
+      "18:00"]
   },
 
   yAxis: {
@@ -161,6 +159,20 @@ var option1 = {
 export default {
   data() {
     return {
+      xArr:[
+      "8:00",
+      "9:00",
+      "10:00",
+      "11:00",
+      "12:00",
+      "13:00",
+      "14:00",
+      "15:00",
+      "16:00",
+      "17:00",
+      "18:00"
+    ],
+      yArr:[116, 120, 336, 210, 170, 240, 110, 330, 120, 130, 140],
       num1: "0",
       num2: "1",
       num3: "2",
@@ -178,10 +190,14 @@ export default {
   },
   methods: {
     drawLine() {
+      let _this=this;
       // 基于准备好的dom，初始化echarts实例
       let myChart = this.$echarts.init(document.getElementById("myChart2"));
       // 绘制图表
-      myChart.setOption(option1); 
+      option1.xAxis.data=this.xArr;
+      option1.series.data=this.yArr;
+      let option=JSON.parse(JSON.stringify(option1))
+      myChart.setOption(option); 
       // 动态显示tootip
       var faultByHourIndex = 0; //播放所在下标
       var faultByHourTime = setInterval(function() { //使得tootip每隔三秒自动显示
@@ -191,6 +207,10 @@ export default {
               dataIndex: faultByHourIndex
           });
           faultByHourIndex++;
+          console.info(faultByHourIndex)
+          if(faultByHourIndex>=_this.xArr.length){
+            faultByHourIndex=0
+          }
       }, 3000 );     
     }
   }

@@ -189,6 +189,17 @@ var option1 = {
 export default {
   data() {
     return {
+      xArr:["8:00",
+      "9:00",
+      "10:00",
+      "11:00",
+      "12:00",
+      "13:00",
+      "14:00",
+      "15:00",
+      "16:00",
+      "17:00",
+      "18:00"],
       num1: "0",
       num2: "0",
       num3: "3",
@@ -207,6 +218,7 @@ export default {
   },
   methods: {
     drawLine() {
+      let _this=this;
       // 基于准备好的dom，初始化echarts实例
       let myChart = this.$echarts.init(document.getElementById("myChart5"));
       // 绘制图表
@@ -220,6 +232,9 @@ export default {
               dataIndex: faultByHourIndex1
           });
           faultByHourIndex1++;
+          if(faultByHourIndex1>=_this.xArr.length){
+            faultByHourIndex=0
+          }
       }, 3000 );
     }
   }
