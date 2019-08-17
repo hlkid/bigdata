@@ -109,9 +109,7 @@ export default {
   },
   mounted() {
     this.allpage=Math.ceil(this.resList.length / 4);
-    for(let i=0;i<4;i++){
-      this.list.push(this.resList[i])
-    }
+    this.timeInterval();
     if(this.resList.length>4){
       this.timer = setInterval(this.timeInterval, 6000);
     }else{
@@ -125,7 +123,7 @@ export default {
     //设置定时器循环轮播数据
     timeInterval:function(){
       let _this=this;
-      let tempPage=this.nowpage+1;
+      let tempPage=this.nowpage;
       this.list=[];
       setTimeout(function(){
         for(let i=4*tempPage;i<4*tempPage+4;i++){
@@ -136,9 +134,9 @@ export default {
       },50)
       console.info(this.nowpage,this.allpage)
       if(Number(tempPage+1)>=Number(this.allpage)){
-        this.nowpage=-1
+        this.nowpage=0
       }else{
-        this.nowpage=this.nowpage+1
+        this.nowpage=tempPage+1
       }
     }
   }
