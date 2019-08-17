@@ -89,20 +89,6 @@ export default {
           txt1: "大卫.麦考利",
           txt2: "人名出版社",
           txt3: "356"
-        },
-        {
-          imgSrc: require("../assets/1.png"),
-          title: "黑与白",
-          txt1: "大卫.麦考利",
-          txt2: "人名出版社",
-          txt3: "356"
-        },
-        {
-          imgSrc: require("../assets/1.png"),
-          title: "黑与白",
-          txt1: "大卫.麦考利",
-          txt2: "人名出版社",
-          txt3: "356"
         }
       ]
     };
