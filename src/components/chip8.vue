@@ -5,43 +5,25 @@
     </div>
     <div class="box">
       <div class="list">
-        <div class="li_list clearfloat box-s">
+        <div class="li_list clearfloat box-s" v-for="(item,index) in resList" :key="index">
           <p class="tit over fl">
-            厚黑学全集1
+            {{item.title}}
           </p>
           <div class="li_bottom clearfloat box-s">
             <p class="nr fl">
-                作者：孙中明
+                作者：{{item.txt1}}
             </p>
             <p class="nr fl">
-                出版社：人民出版社
+                出版社：{{item.txt2}}
             </p>
             <p class="nr fl">
-                索书号：7-99889-89899
+                索书号：{{item.txt3}}
             </p>
           </div>
         </div>
         <ul>
-          <li class="p7">
-            <img src="../assets/2.png" alt />
-          </li>
-          <li class="p6">
-            <img src="../assets/2.png" alt />
-          </li>
-          <li class="p5">
-            <img src="../assets/2.png" alt />
-          </li>
-          <li class="p4">
-            <img src="../assets/2.png" alt />
-          </li>
-          <li class="p3">
-            <img src="../assets/2.png" alt />
-          </li>
-          <li class="p2">
-            <img src="../assets/2.png" alt />
-          </li>
-          <li class="p1">
-            <img src="../assets/2.png" alt />            
+          <li class="p7" v-for="(item,index) in resList" :key="index" >
+            <img :src="item.imgSrc" alt />
           </li>
         </ul>
       </div>
@@ -53,7 +35,60 @@
 import $ from "jquery";
 export default {
   data() {
-    return {};
+    return {
+      currentindex:0,
+      resList:[
+        {
+          imgSrc: require("../assets/2.png"),
+          title: "黑与白1",
+          txt1: "大卫.麦考利",
+          txt2: "人名出版社",
+          txt3: "7-99889-89899"
+        },
+        {
+          imgSrc: require("../assets/2.png"),
+          title: "黑与白2",
+          txt1: "大卫.麦考利",
+          txt2: "人名出版社",
+          txt3: "7-99889-89899"
+        },
+        {
+          imgSrc: require("../assets/2.png"),
+          title: "黑与白3",
+          txt1: "大卫.麦考利",
+          txt2: "人名出版社",
+          txt3: "7-99889-89899"
+        },
+        {
+          imgSrc: require("../assets/2.png"),
+          title: "黑与白4",
+          txt1: "大卫.麦考利",
+          txt2: "人名出版社",
+          txt3: "7-99889-89899"
+        },
+        {
+          imgSrc: require("../assets/2.png"),
+          title: "黑与白5",
+          txt1: "大卫.麦考利",
+          txt2: "人名出版社",
+          txt3: "7-99889-89899"
+        },
+        {
+          imgSrc: require("../assets/2.png"),
+          title: "黑与白6",
+          txt1: "大卫.麦考利",
+          txt2: "人名出版社",
+          txt3: "7-99889-89899"
+        },
+        {
+          imgSrc: require("../assets/2.png"),
+          title: "黑与白7",
+          txt1: "大卫.麦考利",
+          txt2: "人名出版社",
+          txt3: "7-99889-89899"
+        }
+      ]
+    };
   },
   mounted() {
     var $s = $(".box .list ul li");
@@ -91,9 +126,9 @@ export default {
       $(".box .list ul li").each(function(i, e) {
         $(e)
           .removeClass()
-          .addClass(cArr[i]);
-      });
-      index++;
+          .addClass(cArr[i]);      
+      });  
+      index++;     
       if (index > 6) {
         index = 0;
       }
@@ -109,6 +144,11 @@ export default {
         .siblings()
         .children()
         .removeClass("active");
+      $(".box .list .li_list")
+        .eq(index)
+        .addClass("listactive")
+        .siblings()
+        .removeClass("listactive");
     }
 
     //点击class为p2的元素触发上一张照片的函数
@@ -187,7 +227,8 @@ li:before {
   left: 360px;
   z-index: 999;
   width: 178px;
-  height: 200px;    
+  height: 200px; 
+  display: none;   
   
   .tit{
     width: 100%;
@@ -211,6 +252,9 @@ li:before {
       }
     }
   }
+}
+.listactive{
+  display:block;
 }
 
 img {
