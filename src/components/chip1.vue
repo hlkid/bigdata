@@ -97,6 +97,7 @@ export default {
       }
 
       ctx.lineWidth = 8; //线条的宽度
+      ctx.lineCap = 'round';//进度条圆角
       ctx.font = "60px SimHei"; //字体样式
       var start = -90,
         end = this.countAngleFun(rate); //起止点
