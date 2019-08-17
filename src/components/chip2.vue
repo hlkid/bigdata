@@ -100,6 +100,40 @@ var option1 = {
       }
     }
   },
+  tooltip: {
+      trigger: 'axis',
+      backgroundColor: "rgba(35, 47, 76, 0.5)",
+      position: function (point, params, dom, rect, size) {
+            // 固定在中部
+            return [point[0], '40%'];
+      },
+      textStyle:{
+          color:'rgba(124, 129, 173, 0.98)',
+          fontSize: 12
+      },
+      axisPointer: {
+          type: "shadow",
+          label: {
+              show: true,
+              backgroundColor: 'transparent'
+          },
+          shadowStyle:{
+              color:{
+                  type: 'linear', x: 0, y: 0, x2: 0, y2: 1,
+                  colorStops: [{
+                      offset: 0, color: 'rgba(100, 101, 171, 0)' // 0% 处的颜色
+                  }, {
+                      offset: 0.5, color: 'rgba(100, 101, 171, 0.2)' // 50% 处的颜色
+                  },{
+                      offset: 0.999999, color: 'rgba(100, 101, 171, 1)' // 100% 处的颜色
+                  },{
+                      offset: 1, color: 'rgba(100, 101, 171, 1)' // 100% 处的颜色
+                  }],
+                  global: false // 缺省为 false
+              }
+          }
+      }
+  },
   series: [
     {
       data: [116, 120, 336, 210, 170, 240, 110, 330, 120, 130, 140],
@@ -121,7 +155,7 @@ var option1 = {
         }
       }
     }
-  ]
+  ],  
 };
 
 export default {
@@ -147,7 +181,17 @@ export default {
       // 基于准备好的dom，初始化echarts实例
       let myChart = this.$echarts.init(document.getElementById("myChart2"));
       // 绘制图表
-      myChart.setOption(option1);
+      myChart.setOption(option1); 
+      // 动态显示tootip
+      var faultByHourIndex = 0; //播放所在下标
+      var faultByHourTime = setInterval(function() { //使得tootip每隔三秒自动显示
+          myChart.dispatchAction({
+              type: 'showTip', // 根据 tooltip 的配置项显示提示框。
+              seriesIndex: 0,
+              dataIndex: faultByHourIndex
+          });
+          faultByHourIndex++;
+      }, 3000 );     
     }
   }
 };
