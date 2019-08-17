@@ -233,7 +233,7 @@ export default {
           });
           faultByHourIndex1++;
           if(faultByHourIndex1>=_this.xArr.length){
-            faultByHourIndex=0
+            faultByHourIndex1=0
           }
       }, 3000 );
     }
