@@ -150,7 +150,7 @@ export default {
       } else {
         return Number(-45 + endPoint);
       }
-    }
+    },
   }
 };
 </script>
