@@ -107,6 +107,7 @@ body {
     background: url(./assets/icon3.png) no-repeat;
     background-size: cover;
     margin-right: 18px;
+    overflow: hidden;
     .title {
       font-size: 20px;
       margin-left: 19px;

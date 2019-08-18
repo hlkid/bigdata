@@ -107,14 +107,14 @@ export default {
       let _this=this;
       //右侧画布参数依次传值为 1/2（男/女） 比例值
       _this.canvasDrawR(1, 54);;
-      this.timer5 = setInterval(function(){
-        _this.canvasDrawR(1, 54);;
-      }, 5000);
+      // this.timer5 = setInterval(function(){
+      //   _this.canvasDrawR(1, 54);;
+      // }, 5000);
       //右侧画布参数依次传值为 1/2（男/女） 比例值
       _this.canvasDrawR(2, 46);;
-      this.timer5 = setInterval(function(){
-        _this.canvasDrawR(2, 46);
-      }, 5000);
+      // this.timer5 = setInterval(function(){
+      //   _this.canvasDrawR(2, 46);
+      // }, 5000);
     },
     //test中转
     test:function(index, r, color, rate,timeIndex){
