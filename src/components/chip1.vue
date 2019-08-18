@@ -51,6 +51,17 @@
 export default {
   data() {
     return {
+      flagR1:false,
+      flagR2:false,
+      timer:"",
+      timer1:"",
+      timer2:"",
+      timer3:"",
+      timer4:"",
+      ending1:1,
+      ending2:1,
+      ending3:1,
+      ending4:1,
       cardAll: "16,523",
       cardNow: "13",
       rateR: "54%",
@@ -62,21 +73,100 @@ export default {
     };
   },
   mounted() {
-    //0-18周岁  参数依次半径、颜色、百分比
-    this.canvasDrawL(1, 70, "#00FFCB", 62.5);
-    //19-30周岁  参数依次半径、颜色、百分比
-    this.canvasDrawL(2, 55, "#FBD70C", 38.2);
-    //19-30周岁  参数依次半径、颜色、百分比
-    this.canvasDrawL(3, 40, "#0E6DE9", 32.4);
-    //19-30周岁  参数依次半径、颜色、百分比
-    this.canvasDrawL(4, 25, "#34DEFC", 40);
-
-    //右侧画布参数依次传值为 1/2（男/女） 比例值
-    this.canvasDrawR(1, 54);
-    //右侧画布参数依次传值为 1/2（男/女） 比例值
-    this.canvasDrawR(2, 46);
+    this.dataInitLeft();
+    this.dataInitRight();
   },
+  beforeDestroy() {
+      clearInterval(this.timer);
+    },
   methods: {
+    dataInitLeft:function(){
+      let _this=this;
+    //0-18周岁  参数依次半径、颜色、百分比、第几个定时器
+    // this.test(1, 70, "#00FFCB", 62.5);
+    this.timer1 = setInterval(function(){
+      _this.test(1, 70, "#00FFCB", 62.5,1)
+    }, 10);
+    //19-30周岁  参数依次半径、颜色、百分比
+    this.timer2 = setInterval(function(){
+      _this.test(2, 55, "#FBD70C", 38.2,2);
+    }, 10);
+    // this.canvasDrawL(2, 55, "#FBD70C", 38.2);
+    //19-30周岁  参数依次半径、颜色、百分比
+    this.timer3 = setInterval(function(){
+      _this.test(3, 40, "#0E6DE9", 32.4,3);
+    }, 10);
+    // this.canvasDrawL(3, 40, "#0E6DE9", 32.4);
+    //19-30周岁  参数依次半径、颜色、百分比
+    this.timer4 = setInterval(function(){
+      _this.test(4, 25, "#34DEFC", 40,4);
+    }, 10);
+    // this.canvasDrawL(4, 25, "#34DEFC", 40);
+    },
+    dataInitRight:function(){
+      let _this=this;
+      //右侧画布参数依次传值为 1/2（男/女） 比例值
+      _this.canvasDrawR(1, 54);;
+      this.timer5 = setInterval(function(){
+        _this.canvasDrawR(1, 54);;
+      }, 5000);
+      //右侧画布参数依次传值为 1/2（男/女） 比例值
+      _this.canvasDrawR(2, 46);;
+      this.timer5 = setInterval(function(){
+        _this.canvasDrawR(2, 46);
+      }, 5000);
+    },
+    //test中转
+    test:function(index, r, color, rate,timeIndex){
+      let ending=0
+      switch (timeIndex) {
+          case 1:
+            this.ending1++;
+            ending=this.ending1;
+            break;
+          case 2:
+            this.ending2++;
+            ending=this.ending2;
+            break;
+          case 3:
+            this.ending3++;
+            ending=this.ending3;
+            break;
+          case 4:
+            this.ending4++;
+            ending=this.ending4;
+            break;
+        
+          default:
+            break;
+        }
+      if(ending<=Number(rate)){
+        this.canvasDrawL(index, r, color, ending)
+      }else{
+        switch (timeIndex) {
+          case 1:
+            clearInterval(this.timer1);
+            this.ending=1
+            break;
+          case 2:
+            clearInterval(this.timer2);
+            this.ending=1
+            break;
+          case 3:
+            clearInterval(this.timer3);
+            this.ending=1
+            break;
+          case 4:
+            clearInterval(this.timer4);
+            this.ending=1
+            break;
+        
+          default:
+            break;
+        }
+        
+      }
+    },
     //左侧画布
     canvasDrawL: function(index, r, color, rate) {
       switch (index) {
@@ -122,14 +212,17 @@ export default {
         end = this.countCicleFun(sex, rate); //起止点
       ctx.clearRect(0, 0, 150, 150); //清除画布已有内容
       //绘制圆弧
+      ctx.lineWidth=this.flagR?10:17;
       if (sex == 1) {
-        ctx.lineWidth = 10; //线条的宽度
+        ctx.lineWidth=this.flagR1?10:17;
+        this.flagR1=!this.flagR1;
         ctx.arc(75, 75, 63, start * Math.PI / 180, end * Math.PI / 180, true); //绘制一个弧线
         ctx.strokeStyle = "#AC4ED3"; //轮廓/描边的颜色
         ctx.fillStyle = "#AC4ED3"; //填充颜色
         ctx.stroke(); //对一条路径描边
       } else {
-        ctx.lineWidth = 17; //线条的宽度
+        ctx.lineWidth=this.flagR2?17:10;
+        this.flagR2=!this.flagR2;
         ctx.arc(75, 75, 67, start * Math.PI / 180, end * Math.PI / 180, false); //绘制一个弧线
         ctx.strokeStyle = "#0E6DE9"; //轮廓/描边的颜色
         ctx.fillStyle = "#0E6DE9"; //填充颜色
@@ -150,7 +243,7 @@ export default {
       } else {
         return Number(-45 + endPoint);
       }
-    },
+    }
   }
 };
 </script>
