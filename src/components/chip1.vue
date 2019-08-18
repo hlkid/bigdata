@@ -39,8 +39,8 @@
       <img class="boy iconImg" src="../assets/boy.png">
       <img class="gril iconImg" src="../assets/gril.png">
       <div class="canvasRightTxt">
-        <div class="rate">{{rateR}}</div>
-        <div class="txt">{{txtR}}</div>
+        <div class="rate">{{this.flagR1?rateR2:rateR1}}%</div>
+        <div class="txt">{{this.flagR1?txtR2:txtR1}}</div>
       </div>
     </div>
 
@@ -64,8 +64,10 @@ export default {
       ending4:1,
       cardAll: "16,523",
       cardNow: "13",
-      rateR: "54%",
-      txtR: "男性读者",
+      rateR1: 54,
+      txtR1: "男性读者",
+      rateR2: 46,
+      txtR2: "女性读者",
       rate1: "36.4%",
       rate2: "23.2%",
       rate3: "12.4%",
@@ -214,6 +216,8 @@ export default {
       //绘制圆弧
       ctx.lineWidth=this.flagR?10:17;
       if (sex == 1) {
+        this.rateR1=rate;
+        this.txtR1="男性读者";
         ctx.lineWidth=this.flagR1?10:17;
         this.flagR1=!this.flagR1;
         ctx.beginPath(); //开始绘制路径
@@ -223,6 +227,8 @@ export default {
           ctx.stroke(); //对一条路径描边
         
       } else {
+        this.rateR2=rate;
+        this.txtR2="女性读者";
         ctx.lineWidth=this.flagR2?17:10;
         this.flagR2=!this.flagR2;
         ctx.beginPath(); //开始绘制路径
