@@ -8,7 +8,8 @@
       <b>{{num}} </b>
       <div class="subTitle">册</div>
     </div>
-    <div class="picbox" v-if="list.length>0">
+    <transition enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutLeft">
+            <div class="picbox" v-if="list.length>0">
       <div v-for="(item,index) in list" :key="index" class="item">
         <div class="num rotatesimg">{{nowpage*4+index+1}}</div>
         <img :src="item.imgSrc" class="rotates rotatesimg" />
@@ -21,10 +22,15 @@
       </div>
 
     </div>
+        </transition>
+    
   </div>
 </template>
 
 <script>
+import $ from 'jquery'
+import animate from 'animate.css'
+
 export default {
   data() {
     return {
