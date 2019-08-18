@@ -107,14 +107,14 @@ export default {
       let _this=this;
       //右侧画布参数依次传值为 1/2（男/女） 比例值
       _this.canvasDrawR(1, 54);;
-      // this.timer5 = setInterval(function(){
-      //   _this.canvasDrawR(1, 54);;
-      // }, 5000);
+      this.timer5 = setInterval(function(){
+        _this.canvasDrawR(1, 54);;
+      }, 3000);
       //右侧画布参数依次传值为 1/2（男/女） 比例值
       _this.canvasDrawR(2, 46);;
-      // this.timer5 = setInterval(function(){
-      //   _this.canvasDrawR(2, 46);
-      // }, 5000);
+      this.timer5 = setInterval(function(){
+        _this.canvasDrawR(2, 46);
+      }, 3000);
     },
     //test中转
     test:function(index, r, color, rate,timeIndex){
@@ -208,27 +208,29 @@ export default {
       }
 
       ctx.font = "60px SimHei"; //字体样式
-      var start = -40,
-        end = this.countCicleFun(sex, rate); //起止点
+      let start = -40;
+      let end = this.countCicleFun(sex, rate); //起止点
       ctx.clearRect(0, 0, 150, 150); //清除画布已有内容
       //绘制圆弧
       ctx.lineWidth=this.flagR?10:17;
       if (sex == 1) {
         ctx.lineWidth=this.flagR1?10:17;
         this.flagR1=!this.flagR1;
+        ctx.beginPath(); //开始绘制路径
         ctx.arc(75, 75, 63, start * Math.PI / 180, end * Math.PI / 180, true); //绘制一个弧线
         ctx.strokeStyle = "#AC4ED3"; //轮廓/描边的颜色
         ctx.fillStyle = "#AC4ED3"; //填充颜色
-        ctx.stroke(); //对一条路径描边
+          ctx.stroke(); //对一条路径描边
+        
       } else {
         ctx.lineWidth=this.flagR2?17:10;
         this.flagR2=!this.flagR2;
+        ctx.beginPath(); //开始绘制路径
         ctx.arc(75, 75, 67, start * Math.PI / 180, end * Math.PI / 180, false); //绘制一个弧线
         ctx.strokeStyle = "#0E6DE9"; //轮廓/描边的颜色
         ctx.fillStyle = "#0E6DE9"; //填充颜色
         ctx.stroke(); //对一条路径描边
       }
-      ctx.stroke(); //对一条路径描边
     },
     //计算圆形的度数——num为百分数（百分之几）——用于左侧函数
     countAngleFun: function(num) {
