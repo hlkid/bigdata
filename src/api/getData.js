@@ -1,4 +1,4 @@
-import { baseUrl} from '../config/env'
+import { baseUrl} from '../config/evn.js'
 
 export const  activityList = baseUrl+'/api/bigData/front/activityList';//活动预告数据
 export const  bookNewList  = baseUrl+'/api/bigData/front/bookNewList';//新书推荐
