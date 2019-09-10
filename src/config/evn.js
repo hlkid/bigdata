@@ -4,9 +4,8 @@
  * baseUrl: 域名地址
  * 
  */
-let baseUrl = 'https://sharebook.net.cn/book-share2'; //生产接口地址
 
-let baseUrl = 'https://sharebook.net.cn/book-share2'; //测试接口地址
+let baseUrl = 'http://221.226.11.66:8081/wisdom-api'; //测试接口地址
 
 export {
 	baseUrl,
