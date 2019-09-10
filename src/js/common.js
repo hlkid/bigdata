@@ -1,7 +1,7 @@
 import $ from "jquery";
 
 // 获得ajax post返回Json数据    (地址，参数，同步/异步（true,false），交互类型，回调，是否显示异常弹窗)
-function ajaxCallback(url, async, param, type, callback, errorMsgShow) {
+function ajaxCallback(url, async, param, type, callback) {
   param = JSON.stringify(param);
   $.ajax({
     url: url,
