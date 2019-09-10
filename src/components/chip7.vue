@@ -29,7 +29,7 @@
 
 <script>
 import $ from 'jquery'
-import { bookNewList } from "../api/getData.js";
+import { bookRankList } from "../api/getData.js";
 import { ajaxCallback } from "../js/common.js";
 import animate from 'animate.css'
 
@@ -109,18 +109,18 @@ export default {
     }else{
       this.list=this.resList
     }
-    this.bookNewList();
+    this.bookRankList();
   },
   beforeDestroy() {
       clearInterval(this.timer);
     },
   methods: {
-    bookNewList: function() {
+    bookRankList: function() {
       let _this = this;
       let params = {
         rcount:8
       }
-      ajaxCallback( bookNewList, true, params, "GET", function(res) {
+      ajaxCallback( bookRankList, true, params, "GET", function(res) {
           console.log(res)
         }
       );

@@ -48,6 +48,8 @@
 </template>
 
 <script>
+import { readersAnasis } from "../api/getData.js";
+import { ajaxCallback } from "../js/common.js";
 export default {
   data() {
     return {
@@ -75,6 +77,7 @@ export default {
     };
   },
   mounted() {
+    this.readersAnasis();
     this.dataInitLeft();
     this.dataInitRight();
   },
@@ -82,6 +85,16 @@ export default {
       clearInterval(this.timer);
     },
   methods: {
+    readersAnasis: function() {
+      let _this = this;
+      let params = {
+        
+      }
+      ajaxCallback( readersAnasis, true, params, "GET", function(res) {
+          console.log(res)
+        }
+      );
+    },
     dataInitLeft:function(){
       let _this=this;
     //0-18周岁  参数依次半径、颜色、百分比、第几个定时器

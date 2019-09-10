@@ -33,6 +33,8 @@
 
 <script>
 import $ from "jquery";
+import { bookNewList } from "../api/getData.js";
+import { ajaxCallback } from "../js/common.js";
 export default {
   data() {
     return {
@@ -91,6 +93,7 @@ export default {
     };
   },
   mounted() {
+    this.bookNewList();
     var $s = $(".box .list ul li");
     var cArr = ["p7", "p6", "p5", "p4", "p3", "p2", "p1"];
     var index = 0;
@@ -166,7 +169,18 @@ export default {
     //          进入页面自动开始定时器
     var timer = setInterval(nextimg, 4000);
   },
-  methods: {}
+  methods: {
+    bookNewList: function() {
+      let _this = this;
+      let params = {
+        rcount:7
+      }
+      ajaxCallback( bookNewList, true, params, "GET", function(res) {
+          console.log(res)
+        }
+      );
+    },
+  }
 };
 </script>
 

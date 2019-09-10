@@ -71,6 +71,8 @@
 
 <script>
 import $ from "jquery";
+import { libBaseInfo } from "../api/getData.js";
+import { ajaxCallback } from "../js/common.js";
     $.fn.leoweather = function (opts) {
         var defaults = {
             city: '',
@@ -260,9 +262,19 @@ export default {
               '<div class="fr right"><p>{最低气温}~{最高气温}</p><samp></samp><p>{年}/{月}/{日} {时}:{分}:{秒}</p></div>' +
               '</div>'
       });
+      this.libBaseInfo();
     },
     methods:{
-
+      libBaseInfo: function() {
+        let _this = this;
+        let params = {
+          
+        }
+        ajaxCallback( libBaseInfo, true, params, "GET", function(res) {
+            console.log(res)
+          }
+        );
+      },
     }
 }
 </script>

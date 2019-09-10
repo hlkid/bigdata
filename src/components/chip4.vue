@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { activityList } from "../api/getData.js";
+import { ajaxCallback } from "../js/common.js";
 export default {
     data(){
         return{
@@ -36,10 +38,19 @@ export default {
         }
     },
     mounted(){
-
+      this.activityList();
     },
     methods:{
-
+      activityList: function() {
+        let _this = this;
+        let params = {
+          rcount:1
+        }
+        ajaxCallback( activityList, true, params, "GET", function(res) {
+            console.log(res)
+          }
+        );
+      },
     }
 }
 </script>

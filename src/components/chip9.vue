@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { libBaseInfo } from "../api/getData.js";
+import { ajaxCallback } from "../js/common.js";
 export default {
     data(){
         return {
@@ -18,10 +20,19 @@ export default {
         }
     },
     mounted(){
-
+      this.libBaseInfo();
     },
     methods:{
-       
+       libBaseInfo: function() {
+        let _this = this;
+        let params = {
+          
+        }
+        ajaxCallback( libBaseInfo, true, params, "GET", function(res) {
+            console.log(res)
+          }
+        );
+      },
     }
 }
 </script>
