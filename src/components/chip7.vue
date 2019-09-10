@@ -29,6 +29,8 @@
 
 <script>
 import $ from 'jquery'
+import { bookNewList } from "../api/getData.js";
+import { ajaxCallback } from "../js/common.js";
 import animate from 'animate.css'
 
 export default {
@@ -107,11 +109,22 @@ export default {
     }else{
       this.list=this.resList
     }
+    this.bookNewList();
   },
   beforeDestroy() {
       clearInterval(this.timer);
     },
   methods: {
+    bookNewList: function() {
+      let _this = this;
+      let params = {
+        rcount:8
+      }
+      ajaxCallback( bookNewList, true, params, "GET", function(res) {
+          console.log(res)
+        }
+      );
+    },
     //设置定时器循环轮播数据
     timeInterval:function(){
       let _this=this;
