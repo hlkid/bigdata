@@ -5,19 +5,19 @@
     </div>
     <div class="numBox">
       <div class="subTitle">近一个月共借出书籍</div>
-      <b>{{num}} </b>
+      <b>{{borrowMap.borrowed}} </b>
       <div class="subTitle">册</div>
     </div>
     <transition enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutLeft">
             <div class="picbox" v-if="list.length>0">
       <div v-for="(item,index) in list" :key="index" class="item">
         <div class="num rotatesimg">{{nowpage*4+index+1}}</div>
-        <img :src="item.imgSrc" class="rotates rotatesimg" />
+        <img :src="item.cover" class="rotates rotatesimg" />
         <div class="txtBox">
-          <div class="txtTitle over">{{item.title}}</div>
-          <div class="txt over">作者：{{item.txt1}}</div>
-          <div class="txt over">出版社：{{item.txt2}}</div>
-          <div class="txt over">借阅量：{{item.txt3}}</div>
+          <div class="txtTitle over">{{item.bookName}}</div>
+          <div class="txt over">作者：{{item.author}}</div>
+          <div class="txt over">出版社：{{item.publisher}}</div>
+          <div class="txt over">借阅量：{{item.borrowNum}}</div>
         </div>
       </div>
 
@@ -41,64 +41,8 @@ export default {
       allpage:1,//总页数
       timer:"",//定时器
       list: [],
-      resList:[
-        {
-          imgSrc: require("../assets/1.png"),
-          title: "黑与白",
-          txt1: "大卫.麦考利",
-          txt2: "人名出版社",
-          txt3: "356"
-        },
-        {
-          imgSrc: require("../assets/1.png"),
-          title: "黑与白",
-          txt1: "大卫.麦考利",
-          txt2: "人名出版社",
-          txt3: "356"
-        },
-        {
-          imgSrc: require("../assets/1.png"),
-          title: "黑与白",
-          txt1: "大卫.麦考利",
-          txt2: "人名出版社",
-          txt3: "356"
-        },
-        {
-          imgSrc: require("../assets/1.png"),
-          title: "黑与白",
-          txt1: "大卫.麦考利",
-          txt2: "人名出版社",
-          txt3: "356"
-        },
-        {
-          imgSrc: require("../assets/1.png"),
-          title: "黑与白",
-          txt1: "大卫.麦考利",
-          txt2: "人名出版社",
-          txt3: "356"
-        },
-        {
-          imgSrc: require("../assets/1.png"),
-          title: "黑与白",
-          txt1: "大卫.麦考利",
-          txt2: "人名出版社",
-          txt3: "356"
-        },
-        {
-          imgSrc: require("../assets/1.png"),
-          title: "黑与白",
-          txt1: "大卫.麦考利",
-          txt2: "人名出版社",
-          txt3: "356"
-        },
-        {
-          imgSrc: require("../assets/1.png"),
-          title: "黑与白",
-          txt1: "大卫.麦考利",
-          txt2: "人名出版社",
-          txt3: "356"
-        }
-      ]
+      resList:[],
+      borrowMap:''
     };
   },
   mounted() {
@@ -122,6 +66,8 @@ export default {
       }
       ajaxCallback( bookRankList, true, params, "GET", function(res) {
           console.log(res)
+          _this.resList = res.data.booklist;
+          _this.borrowMap = res.data.borrowMap;
         }
       );
     },

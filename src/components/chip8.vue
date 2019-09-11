@@ -46,7 +46,7 @@ export default {
     this.bookNewList();
     var $s = $(".box .list ul li");
     var cArr = ["p7", "p6", "p5", "p4", "p3", "p2", "p1"];
-    var index = 0;
+    var index = 2;
     $(".next").click(function() {
       nextimg();
     });
@@ -85,22 +85,20 @@ export default {
       if (index > 6) {
         index = 0;
       }
-      console.log(this.currentindex)
-      this.currentindex = index
       show(index);
     }
 
     //改变标题内容
-    function show(index) {
+    function show() {
       $(".box .list ul li")
-        .eq(index)
+        .eq(6-index)
         .addClass("active")
         .parent()
         .siblings()
         .children()
         .removeClass("active");
       $(".box .list .li_list")
-        .eq(index)
+        .eq(6-index)
         .addClass("listactive")
         .siblings()
         .removeClass("listactive");
