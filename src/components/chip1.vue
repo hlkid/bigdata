@@ -21,16 +21,16 @@
     </div>
     <div class="leftData">
       <div class="list">09 - 18岁
-        <b>{{rate1}}</b>
+        <b>{{rate1}}%</b>
       </div>
       <div class="list">19 - 30岁
-        <b>{{rate2}}</b>
+        <b>{{rate2}}%</b>
       </div>
       <div class="list">31 - 50岁
-        <b>{{rate3}}</b>
+        <b>{{rate3}}%</b>
       </div>
       <div class="list">51 - 60岁
-        <b>{{rate4}}</b>
+        <b>{{rate4}}%</b>
       </div>
     </div>
     <div class="canvasBox canvasRight">
@@ -64,22 +64,22 @@ export default {
       ending2:1,
       ending3:1,
       ending4:1,
-      cardAll: "16,523",
-      cardNow: "13",
-      rateR1: 54,
+      cardAll: "0",
+      cardNow: "0",
+      rateR1: 0,
       txtR1: "男性读者",
-      rateR2: 46,
+      rateR2: 0,
       txtR2: "女性读者",
-      rate1: "36.4%",
-      rate2: "23.2%",
-      rate3: "12.4%",
-      rate4: "40%"
+      rate1: 0,
+      rate2: 0,
+      rate3: 0,
+      rate4: 0
     };
   },
   mounted() {
     this.readersAnasis();
-    this.dataInitLeft();
-    this.dataInitRight();
+    // this.dataInitLeft();
+    // this.dataInitRight();
   },
   beforeDestroy() {
       clearInterval(this.timer);
@@ -87,11 +87,28 @@ export default {
   methods: {
     readersAnasis: function() {
       let _this = this;
-      let params = {
-        
-      }
-      ajaxCallback( readersAnasis, true, params, "GET", function(res) {
-          console.log(res)
+      ajaxCallback( readersAnasis, true, "", "GET", function(res) {
+          // console.log("1111",res);
+          _this.cardAll=res.data.readerCount.readersCount;
+          _this.cardNow=res.data.readerCount.pastCount;
+          let allcount=0;
+          let countList=res.data.ageStatics;
+          for(let i=0;i<countList.length;i++){
+            allcount+=countList[i].readersNum;
+          }
+          _this.rate1=allcount==0?0:((countList[0].readersNum/allcount)*100).toFixed(1);
+          _this.rate2=allcount==0?0:((countList[1].readersNum/allcount)*100).toFixed(1);
+          _this.rate3=allcount==0?0:((countList[2].readersNum/allcount)*100).toFixed(1);
+          _this.rate4=allcount==0?0:((countList[3].readersNum/allcount)*100).toFixed(1);
+          _this.dataInitLeft();
+          let sexStaticsList=res.data.sexStatics;
+          let sexAll=100;
+          for(let k=0;k<sexStaticsList.length;k++){
+            sexAll+=sexStaticsList[k].readersNum
+          }
+          _this.rateR1=sexAll==0?0:((sexStaticsList[1].readersNum/sexAll)*100).toFixed(1);
+          _this.rateR2=sexAll==0?0:((sexStaticsList[0].readersNum/sexAll)*100).toFixed(1);
+          _this.dataInitRight();
         }
       );
     },
@@ -100,35 +117,35 @@ export default {
     //0-18周岁  参数依次半径、颜色、百分比、第几个定时器
     // this.test(1, 70, "#00FFCB", 62.5);
     this.timer1 = setInterval(function(){
-      _this.test(1, 70, "#00FFCB", 62.5,1)
+      _this.test(1, 70, "#00FFCB", _this.rate1,1)
     }, 10);
     //19-30周岁  参数依次半径、颜色、百分比
     this.timer2 = setInterval(function(){
-      _this.test(2, 55, "#FBD70C", 38.2,2);
+      _this.test(2, 55, "#FBD70C", _this.rate2,2);
     }, 10);
     // this.canvasDrawL(2, 55, "#FBD70C", 38.2);
     //19-30周岁  参数依次半径、颜色、百分比
     this.timer3 = setInterval(function(){
-      _this.test(3, 40, "#0E6DE9", 32.4,3);
+      _this.test(3, 40, "#0E6DE9", _this.rate3,3);
     }, 10);
     // this.canvasDrawL(3, 40, "#0E6DE9", 32.4);
     //19-30周岁  参数依次半径、颜色、百分比
     this.timer4 = setInterval(function(){
-      _this.test(4, 25, "#34DEFC", 40,4);
+      _this.test(4, 25, "#34DEFC", _this.rate4,4);
     }, 10);
     // this.canvasDrawL(4, 25, "#34DEFC", 40);
     },
     dataInitRight:function(){
       let _this=this;
       //右侧画布参数依次传值为 1/2（男/女） 比例值
-      _this.canvasDrawR(1, 54);;
+      _this.canvasDrawR(1, _this.rateR1);;
       this.timer5 = setInterval(function(){
-        _this.canvasDrawR(1, 54);;
+        _this.canvasDrawR(1, _this.rateR1);;
       }, 3000);
       //右侧画布参数依次传值为 1/2（男/女） 比例值
-      _this.canvasDrawR(2, 46);;
+      _this.canvasDrawR(2, _this.rateR2);;
       this.timer5 = setInterval(function(){
-        _this.canvasDrawR(2, 46);
+        _this.canvasDrawR(2, _this.rateR2);
       }, 3000);
     },
     //test中转
