@@ -1,5 +1,5 @@
 <template>
-  <div class="chipBox">
+  <div class="chipBox" v-if="flag">
     <div class="title">
       <div class="titleSlide"></div>累计借还
     </div>
@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import { pastBookBorrows } from "../api/getData.js";
+import { ajaxCallback } from "../js/common.js";
 import echarts from "echarts/lib/echarts";
 
 var option1 = {
@@ -152,7 +154,7 @@ var option1 = {
   },
   series: [
     {
-      data: [80, 120, 160, 200, 170, 290, 180, 188, 200, 200, 150],
+      data: [],
       type: "bar",
       color: "#DBBC11",
       barWidth: "11",
@@ -168,7 +170,7 @@ var option1 = {
       }
     },
     {
-      data: [116, 120, 336, 210, 170, 240, 110, 330, 120, 130, 140],
+      data: [],
       type: "bar",
       color: "#00A2FF",
       barWidth: "11",
@@ -189,34 +191,82 @@ var option1 = {
 export default {
   data() {
     return {
-      xArr:["8:00",
-      "9:00",
-      "10:00",
-      "11:00",
-      "12:00",
-      "13:00",
-      "14:00",
-      "15:00",
-      "16:00",
-      "17:00",
-      "18:00"],
-      num1: "0",
-      num2: "0",
-      num3: "3",
-      num4: "1",
-      num5: "7",
-      num6: "1",
-      num7: "2",
-      num8: "7",
-      num9: "6",
-      borrowNum: 1300,
-      returnNum: 900
+      flag: false, //重新渲染
+      num1: "",
+      num2: "",
+      num3: "",
+      num4: "",
+      num5: "",
+      num6: "",
+      num7: "",
+      num8: "",
+      num9: "",
+      borrowNum: 0,
+      returnNum: 0
     };
   },
   mounted() {
-    this.drawLine();
+    this.dataInit();
+    // this.drawLine();
   },
   methods: {
+    dataInit: function() {
+      let _this = this;
+      ajaxCallback(pastBookBorrows, true, "", "GET", function(res) {
+        console.log("55555", res);
+        if (res.code == 0) {
+          let allNum = res.data.pastBorrowsCount.borrowed + res.data.pastBorrowsCount.returned+"";
+          let allNumArr = allNum.split("");
+          _this.num9 =
+            allNumArr[allNumArr.length - 1] == undefined
+              ? 0
+              : allNumArr[allNumArr.length - 1];
+          _this.num8 =
+            allNumArr[allNumArr.length - 2] == undefined
+              ? 0
+              : allNumArr[allNumArr.length - 2];
+          _this.num7 =
+            allNumArr[allNumArr.length - 3] == undefined
+              ? 0
+              : allNumArr[allNumArr.length - 3];
+          _this.num6 =
+            allNumArr[allNumArr.length - 4] == undefined
+              ? 0
+              : allNumArr[allNumArr.length - 4];
+          _this.num5 =
+            allNumArr[allNumArr.length - 5] == undefined
+              ? 0
+              : allNumArr[allNumArr.length - 5];
+          _this.num4 =
+            allNumArr[allNumArr.length - 6] == undefined
+              ? 0
+              : allNumArr[allNumArr.length - 6];
+          _this.num3 =
+            allNumArr[allNumArr.length - 7] == undefined
+              ? 0
+              : allNumArr[allNumArr.length - 7];
+          _this.num2 =
+            allNumArr[allNumArr.length - 8] == undefined
+              ? 0
+              : allNumArr[allNumArr.length - 8];
+          _this.num1 =
+            allNumArr[allNumArr.length - 9] == undefined
+              ? 0
+              : allNumArr[allNumArr.length - 9];
+              _this.borrowNum= res.data.todayBorrowsCount.borrowed;
+              _this.returnNum= res.data.todayBorrowsCount.returned;
+          let yArrList = res.data.todayTimeBorrows;
+          for (let i = 0; i < yArrList.length; i++) {
+            option1.series[0].data.push(yArrList[i].borrowed);
+            option1.series[1].data.push(yArrList[i].returned);
+          }
+          _this.flag = true;
+          setTimeout(() => {
+            _this.drawLine();
+          }, 100);
+        }
+      });
+    },
     drawLine() {
       let _this=this;
       // 基于准备好的dom，初始化echarts实例
@@ -232,7 +282,7 @@ export default {
               dataIndex: faultByHourIndex1
           });
           faultByHourIndex1++;
-          if(faultByHourIndex1>=_this.xArr.length){
+          if(faultByHourIndex1>=11){
             faultByHourIndex1=0
           }
       }, 3000 );
