@@ -5,7 +5,7 @@
     </div>
     <div class="box">
       <div class="list">
-        <div class="li_list clearfloat box-s" v-for="(item,index) in resList" :key="index" v-show="index == currentindex">
+        <div class="li_list clearfloat box-s" v-for="(item,index) in resList" :key="index">
           <p class="tit over fl">
             {{item.bookName}}
           </p>
@@ -87,24 +87,24 @@ export default {
       }
       console.log(this.currentindex)
       this.currentindex = index
-      // show(index);
+      show(index);
     }
 
     //改变标题内容
-    // function show(index) {
-    //   $(".box .list ul li")
-    //     .eq(index)
-    //     .addClass("active")
-    //     .parent()
-    //     .siblings()
-    //     .children()
-    //     .removeClass("active");
-    //   $(".box .list .li_list")
-    //     .eq(index)
-    //     .addClass("listactive")
-    //     .siblings()
-    //     .removeClass("listactive");
-    // }
+    function show(index) {
+      $(".box .list ul li")
+        .eq(index)
+        .addClass("active")
+        .parent()
+        .siblings()
+        .children()
+        .removeClass("active");
+      $(".box .list .li_list")
+        .eq(index)
+        .addClass("listactive")
+        .siblings()
+        .removeClass("listactive");
+    }
 
     // //点击class为p2的元素触发上一张照片的函数
     // $(document).on("click", ".p2", function() {
