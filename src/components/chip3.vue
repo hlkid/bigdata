@@ -1,10 +1,10 @@
 <template>
   <div class="chipBox chip3 box-s">
     <div class="tu clearfloat box-s">
-      <img src="../assets/lib.png" alt="">
+      <img :src="libroomInfo.cover" alt="">
     </div>
     <div class="bottomtit cleafloat box-s over">
-      公告：益起读书（让成长不孤读）活动即将开启，请大家及时报名参加~
+      {{news.title}}{{news.content}}
     </div>
   </div>
 </template>
@@ -15,7 +15,8 @@ import { ajaxCallback } from "../js/common.js";
 export default {
     data(){
         return{
-
+          libroomInfo:'',
+          news:''
         }
     },
     mounted(){
@@ -28,7 +29,8 @@ export default {
           
         }
         ajaxCallback( libBaseInfo, true, params, "GET", function(res) {
-            console.log(res)
+            _this.libroomInfo = res.data.libroomInfo;
+            _this.news = res.data.news;
           }
         );
       },

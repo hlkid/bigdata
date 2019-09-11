@@ -1,7 +1,10 @@
 <template>
   <div class="chipBox chip6">
     <div class="top clearfloat box-s fl">
-<div class="skin2" id="weather1"></div>
+      <div class="skin2">
+          <img :src="weatherData.dayPictureUrl" alt="" width="25" style="vertical-align:middle; margin-top:-6px;">
+          <div class="tit" style="font-size:18px;"><span>{{weatherData.wd}}</span><span style="margin: 0 10px; display:inline-block; height:14px; border-left:2px solid #fff;"></span>{{data}}</div>
+      </div>
     </div>
     <div class="middle clearfloat box-s fl">
       <div class="left clearfloat fl">
@@ -12,10 +15,7 @@
           <div class="year fl clearfloat">
             <div class="zuo clearfloat fl">
               <ul>
-                <li>2</li>
-                <li>0</li>
-                <li>1</li>
-                <li>9</li>
+                <li v-for="(item,index) in year" :key="index">{{item}}</li>
               </ul>
             </div>
             <p class="fl">年</p>
@@ -23,8 +23,7 @@
           <div class="year month fl clearfloat">
             <div class="zuo clearfloat fl">
               <ul>
-                <li>0</li>
-                <li>1</li>
+                <li v-for="(item,index) in month" :key="index">{{item}}</li>
               </ul>
             </div>
             <p class="fl">月</p>
@@ -32,8 +31,7 @@
           <div class="year month fl clearfloat">
             <div class="zuo clearfloat fl">
               <ul>
-                <li>1</li>
-                <li>9</li>
+                <li v-for="(item,index) in day" :key="index">{{item}}</li>
               </ul>
             </div>
             <p class="fl">日</p>
@@ -51,19 +49,20 @@
         </div>
         <div class="you clearfloat fl box-s">
           <p class="tit over">
-              <span class="fl">周二至周日</span>
-              <span class="fl ml18">09：00~21：00</span>
+              <span class="fl">{{libroomInfo.openTime}}</span>
+              <!-- <span class="fl ml18">09：00~21：00</span> -->
           </p>
           <p class="fu-tit over">
-            周一闭馆，双休日、国家法定节假日正常开放
+            {{libroomInfo.openRemark}}
           </p>
         </div>
       </div>
       <div class="right clearfloat fr box-s">
           <div class="tu clearfloat box-s fl">
-            <img src="../assets/1.jpg" alt="">
+            <img :src="libroomInfo.qrcode" alt="">
           </div>
-          <p class="tit fl">XXX公众号</p>
+          <p class="tit fl">{{libroomInfo.libname}}</p>
+          <!-- 公众号 -->
       </div>
     </div>
   </div>
@@ -73,196 +72,30 @@
 import $ from "jquery";
 import { libBaseInfo } from "../api/getData.js";
 import { ajaxCallback } from "../js/common.js";
-    $.fn.leoweather = function (opts) {
-        var defaults = {
-            city: '',
-            format: '{年}/{月}/{日} {时}:{分}:{秒} 星期{周} <b>{城市}天气</b> <img src="https://xuesax.com/tianqiapi/skin/sogou/{图标}.png" /> {天气} {最低气温}~{最高气温} {风向} {风级}'
-        };
-        var options = $.extend(defaults, opts);
-        return this.each(function () {
-            var obj = $(this),
-                weather = new Array(),
-                format = options.format,
-                url = 'https://www.tianqiapi.com/api/?version=v1&city=' + options.city,
-                model = format.match(/\{.*?\}/g),
-                action = new Array();
-            for (var i = 0; model.length > i; i++) {
-                action[i] = model[i].replace(/{/g, '').replace(/}/g, '');
-            };
-            var valid = action.toString();
-            $.ajax({
-                url: url,
-                dataType: "json",
-                success: function (w) {
-                    weather['city'] = w.city;
-                    weather['data'] = w.data;
-                    setTimer();
-                    console.log(weather);
-                }
-            });
-
-            function getContent(type) {
-                if (type == '城市') {
-                    return weather.city;
-                }
-                var day = /\+(\d).*?/g.exec(type);
-                if (day != null) {
-                    day = parseInt(day[1]);
-                    if (day > 6) {
-                        day = 0;
-                    }
-                } else {
-                    day = 0;
-                }
-                if (/日期.*?/g.exec(type) !== null) {
-                    if (/人性化日期.*?/g.exec(type) !== null) {
-                        return weather.data[day].day;
-                    }
-                    return weather.data[day].date;
-                }
-                if (/天气.*?/g.exec(type) !== null) {
-                    return weather.data[day].wea;
-                }
-                if (/图标.*?/g.exec(type) !== null) {
-                    return weather.data[day].wea_img;
-                }
-                if (/当前气温.*?/g.exec(type) !== null) {
-                    return weather.data[day].tem;
-                }
-                if (/最高气温.*?/g.exec(type) !== null) {
-                    return weather.data[day].tem1;
-                }
-                if (/最低气温.*?/g.exec(type) !== null) {
-                    return weather.data[day].tem2;
-                }
-                if (/风向.*?/g.exec(type) !== null) {
-                    return weather.data[day].win[0];
-                }
-                if (/风级.*?/g.exec(type) !== null) {
-                    return weather.data[day].win_speed;
-                }
-                if (/空气指数.*?/g.exec(type) !== null) {
-                    return weather.data[day].air;
-                }
-                if (/空气等级.*?/g.exec(type) !== null) {
-                    return weather.data[day].air_level;
-                }
-                if (/空气提示.*?/g.exec(type) !== null) {
-                    return weather.data[day].air_tips;
-                }
-                if (/紫外线指数.*?/g.exec(type) !== null) {
-                    return weather.data[day].index[0].level;
-                }
-                if (/紫外线提示.*?/g.exec(type) !== null) {
-                    return weather.data[day].index[0].desc;
-                }
-                if (/穿衣指数.*?/g.exec(type) !== null) {
-                    return weather.data[day].index[3].level;
-                }
-                if (/穿衣提示.*?/g.exec(type) !== null) {
-                    return weather.data[day].index[3].desc;
-                }
-                if (/洗车指数.*?/g.exec(type) !== null) {
-                    return weather.data[day].index[4].level;
-                }
-                if (/洗车提示.*?/g.exec(type) !== null) {
-                    return weather.data[day].index[4].desc;
-                }
-                if (type == '年') {
-                    var today = new Date();
-                    var YY = today.getYear();
-                    if (YY < 1900) YY = YY + 1900;
-                    return '<span id="weather_YY">' + YY + '</span>'
-                }
-                if (type == '月') {
-                    var today = new Date();
-                    var MM = today.getMonth() + 1;
-                    if (MM < 10) MM = '0' + MM;
-                    return '<span id="weather_MM">' + MM + '</span>'
-                }
-                if (type == '日') {
-                    var today = new Date();
-                    var DD = today.getDate();
-                    if (DD < 10) DD = '0' + DD;
-                    return '<span id="weather_DD">' + DD + '</span>'
-                }
-                if (type == '时') {
-                    var today = new Date();
-                    var hh = today.getHours();
-                    if (hh < 10) hh = '0' + hh;
-                    return '<span id="weather_hh">' + hh + '</span>'
-                }
-                if (type == '分') {
-                    var today = new Date();
-                    var mm = today.getMinutes();
-                    if (mm < 10) mm = '0' + mm;
-                    return '<span id="weather_mm">' + mm + '</span>'
-                }
-                if (type == '秒') {
-                    var today = new Date();
-                    var ss = today.getSeconds();
-                    if (ss < 10) ss = '0' + ss;
-                    return '<span id="weather_ss">' + ss + '</span>'
-                }
-            }
-
-            function setTimer() {
-                var timer = 100;
-                for (var i = 0; action.length > i; i++) {
-                    var str = format.replace(/\{(.*?)\}/g, function (a, b) {
-                        var fun = b.replace(/{/g, '').replace(/}/g, '');
-                        return getContent(fun);
-                    })
-                };
-                obj.html(str);
-                var ClockTimer = setInterval(update, timer)
-            }
-
-            function update() {
-                var today = new Date();
-                var YY = today.getYear();
-                if (YY < 1900) YY = YY + 1900;
-                var MM = today.getMonth() + 1;
-                if (MM < 10) MM = '0' + MM;
-                var DD = today.getDate();
-                if (DD < 10) DD = '0' + DD;
-                var hh = today.getHours();
-                if (hh < 10) hh = '0' + hh;
-                var mm = today.getMinutes();
-                if (mm < 10) mm = '0' + mm;
-                var ss = today.getSeconds();
-                if (ss < 10) ss = '0' + ss;
-                var ww = today.getDay();
-                $('#weather_YY').html(YY);
-                $('#weather_MM').html(MM);
-                $('#weather_DD').html(DD);
-                $('#weather_hh').html(hh);
-                $('#weather_mm').html(mm);
-                $('#weather_ss').html(ss);
-                $('#weather_ww').html(ww);
-            }
-        });
-    };
 
 export default {
     data(){
         return{
-
+          year:[],
+          month:[],
+          day:[],
+          libroomInfo:"",
+          news:"",
+          weatherData:"",
+          data:""
         }
     },
     mounted(){
-      //	插件说明
-      //	时间：	{时段}{年}{月}{日}{时}{分}{秒}{周}
-      //	天气： {城市}{天气}{气温}{风向}{风级}{图标}{最高气温}{最低气温}{}{}{}{}{}{}{}
-      //	图标：	自己去选取样式网址，https://www.tianqiapi.com/diy.php?style=ya
-
-      $('#weather1').leoweather({
-          format: '<div class="mid clearfloat box-s">' +
-              '<div class="fl left"><img src="https://xuesax.com/tianqiapi/skin/cake/{图标}.png" /></div>' +
-              '<div class="fr right"><p>{最低气温}~{最高气温}</p><samp></samp><p>{年}/{月}/{日} {时}:{分}:{秒}</p></div>' +
-              '</div>'
+      var _this = this;
+      _this.libBaseInfo();
+      _this.timer = setInterval(function() {
+        _this.data = new Date().toLocaleString();
       });
-      this.libBaseInfo();
+    },
+    beforeDestroy: function() {
+      if (this.timer) {
+        clearInterval(this.timer);
+      }
     },
     methods:{
       libBaseInfo: function() {
@@ -270,12 +103,21 @@ export default {
         let params = {
           
         }
-        ajaxCallback( libBaseInfo, true, params, "GET", function(res) {
-            console.log(res)
+        ajaxCallback( libBaseInfo, true, params, "GET", function(res) {            
+            var year = res.data.bookReturnDay[0].split('')
+            var month = res.data.bookReturnDay[1].split('')
+            var day = res.data.bookReturnDay[2].split('')
+            _this.year = year;
+            _this.month = month;
+            _this.day = day;
+            _this.libroomInfo = res.data.libroomInfo;
+            _this.weatherData = res.data.weatherData;
+            console.log(res.data.weatherData)
           }
         );
-      },
-    }
+      },      
+    },
+
 }
 </script>
 
@@ -420,6 +262,13 @@ export default {
     display: inline-block;
     width: 100%;
     height: 48px;
+    text-align: center;
+    line-height: 48px;
+    .tit{
+      display: inline-block;
+      color: #fff;
+      margin-left: 10px;
+    }
     .mid {
         overflow: hidden;
         width: 345px;

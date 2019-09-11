@@ -5,25 +5,25 @@
     </div>
     <div class="box">
       <div class="list">
-        <div class="li_list clearfloat box-s" v-for="(item,index) in resList" :key="index">
+        <div class="li_list clearfloat box-s" v-for="(item,index) in resList" :key="index" v-show="index == currentindex">
           <p class="tit over fl">
-            {{item.title}}
+            {{item.bookName}}
           </p>
           <div class="li_bottom clearfloat box-s">
-            <p class="nr fl">
-                作者：{{item.txt1}}
+            <p class="nr fl over">
+                作者：{{item.author}}
             </p>
-            <p class="nr fl">
-                出版社：{{item.txt2}}
+            <p class="nr fl over">
+                出版社：{{item.publisher}}
             </p>
-            <p class="nr fl">
-                索书号：{{item.txt3}}
+            <p class="nr fl over">
+                索书号：{{item.callNo}}
             </p>
           </div>
         </div>
         <ul>
           <li class="p7" v-for="(item,index) in resList" :key="index" >
-            <img :src="item.imgSrc" alt />
+            <img :src="item.cover" alt />
           </li>
         </ul>
       </div>
@@ -39,57 +39,7 @@ export default {
   data() {
     return {
       currentindex:0,
-      resList:[
-        {
-          imgSrc: require("../assets/2.png"),
-          title: "黑与白1",
-          txt1: "大卫.麦考利",
-          txt2: "人名出版社",
-          txt3: "7-99889-89899"
-        },
-        {
-          imgSrc: require("../assets/2.png"),
-          title: "黑与白2",
-          txt1: "大卫.麦考利",
-          txt2: "人名出版社",
-          txt3: "7-99889-89899"
-        },
-        {
-          imgSrc: require("../assets/2.png"),
-          title: "黑与白3",
-          txt1: "大卫.麦考利",
-          txt2: "人名出版社",
-          txt3: "7-99889-89899"
-        },
-        {
-          imgSrc: require("../assets/2.png"),
-          title: "黑与白4",
-          txt1: "大卫.麦考利",
-          txt2: "人名出版社",
-          txt3: "7-99889-89899"
-        },
-        {
-          imgSrc: require("../assets/2.png"),
-          title: "黑与白5",
-          txt1: "大卫.麦考利",
-          txt2: "人名出版社",
-          txt3: "7-99889-89899"
-        },
-        {
-          imgSrc: require("../assets/2.png"),
-          title: "黑与白6",
-          txt1: "大卫.麦考利",
-          txt2: "人名出版社",
-          txt3: "7-99889-89899"
-        },
-        {
-          imgSrc: require("../assets/2.png"),
-          title: "黑与白7",
-          txt1: "大卫.麦考利",
-          txt2: "人名出版社",
-          txt3: "7-99889-89899"
-        }
-      ]
+      resList:[]
     };
   },
   mounted() {
@@ -135,36 +85,38 @@ export default {
       if (index > 6) {
         index = 0;
       }
-      show();
+      console.log(this.currentindex)
+      this.currentindex = index
+      // show(index);
     }
 
     //改变标题内容
-    function show() {
-      $(".box .list ul li")
-        .eq(index)
-        .addClass("active")
-        .parent()
-        .siblings()
-        .children()
-        .removeClass("active");
-      $(".box .list .li_list")
-        .eq(index)
-        .addClass("listactive")
-        .siblings()
-        .removeClass("listactive");
-    }
+    // function show(index) {
+    //   $(".box .list ul li")
+    //     .eq(index)
+    //     .addClass("active")
+    //     .parent()
+    //     .siblings()
+    //     .children()
+    //     .removeClass("active");
+    //   $(".box .list .li_list")
+    //     .eq(index)
+    //     .addClass("listactive")
+    //     .siblings()
+    //     .removeClass("listactive");
+    // }
 
-    //点击class为p2的元素触发上一张照片的函数
-    $(document).on("click", ".p2", function() {
-      previmg();
-      return false; //返回一个false值，让a标签不跳转
-    });
+    // //点击class为p2的元素触发上一张照片的函数
+    // $(document).on("click", ".p2", function() {
+    //   previmg();
+    //   return false; //返回一个false值，让a标签不跳转
+    // });
 
-    //点击class为p4的元素触发下一张照片的函数
-    $(document).on("click", ".p4", function() {
-      nextimg();
-      return false;
-    });
+    // //点击class为p4的元素触发下一张照片的函数
+    // $(document).on("click", ".p4", function() {
+    //   nextimg();
+    //   return false;
+    // });
 
     //          进入页面自动开始定时器
     var timer = setInterval(nextimg, 4000);
@@ -176,7 +128,8 @@ export default {
         rcount:7
       }
       ajaxCallback( bookNewList, true, params, "GET", function(res) {
-          console.log(res)
+          console.log(res.data.booklist)
+          _this.resList = res.data.booklist
         }
       );
     },
@@ -274,6 +227,8 @@ li:before {
 img {
   border: none;
   float: left;
+  width: 100px;
+  height: 130px;
 }
 .p1 {
   transform: translate3d(-5px, 0, 0) scale(0.81);
