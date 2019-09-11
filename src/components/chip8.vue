@@ -23,7 +23,7 @@
         </div>
         <ul>
           <li class="p7" v-for="(item,index) in resList" :key="index" >
-            <img :src="item.cover" alt />
+            <img :src="item.cover" alt  style="border-radius:5px;"/>
           </li>
         </ul>
       </div>
@@ -225,8 +225,8 @@ li:before {
 img {
   border: none;
   float: left;
-  width: 100px;
-  height: 130px;
+  width: 116px;
+  height: 150px;
 }
 .p1 {
   transform: translate3d(-5px, 0, 0) scale(0.81);

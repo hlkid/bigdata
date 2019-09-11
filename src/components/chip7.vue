@@ -1,5 +1,5 @@
 <template>
-  <div class="chipBox">
+  <div class="chipBox" v-if="flag">
     <div class="title">
       <div class="titleSlide"></div>图书借阅排行榜
     </div>
@@ -11,8 +11,8 @@
     <transition enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutLeft">
             <div class="picbox" v-if="list.length>0">
       <div v-for="(item,index) in list" :key="index" class="item">
-        <div class="num rotatesimg">{{nowpage*4+index+1}}</div>
-        <img :src="item.cover" class="rotates rotatesimg" />
+        <div class="num rotatesimg">{{item.number}}</div>
+        <img :src="item.cover" width="104" height="136" class="rotates rotatesimg" style="border-radius:5px;" />
         <div class="txtBox">
           <div class="txtTitle over">{{item.bookName}}</div>
           <div class="txt over">作者：{{item.author}}</div>
@@ -36,6 +36,7 @@ import animate from 'animate.css'
 export default {
   data() {
     return {
+      flag:false,//重新渲染
       nowpage:0,
       num: "23,514",
       allpage:1,//总页数
@@ -46,13 +47,7 @@ export default {
     };
   },
   mounted() {
-    this.allpage=Math.ceil(this.resList.length / 4);
-    this.timeInterval();
-    if(this.resList.length>4){
-      this.timer = setInterval(this.timeInterval, 6000);
-    }else{
-      this.list=this.resList
-    }
+    
     this.bookRankList();
   },
   beforeDestroy() {
@@ -66,8 +61,25 @@ export default {
       }
       ajaxCallback( bookRankList, true, params, "GET", function(res) {
           console.log(res)
+          _this.resList=[];
+          _this.list = [];
+          for(let i=0;i<res.data.booklist.length;i++){
+            let obj=res.data.booklist[i];
+            obj.number=i+1;
+            _this.resList.push(obj);
+            _this.list.push(obj);
+          }
           _this.resList = res.data.booklist;
+          _this.list = res.data.booklist;
           _this.borrowMap = res.data.borrowMap;
+          _this.allpage=Math.ceil(_this.resList.length / 4);
+          _this.timeInterval();
+          if(_this.resList.length>4){
+            _this.timer = setInterval(_this.timeInterval, 6000);
+          }else{
+            _this.list=_this.resList
+          }
+          _this.flag=true;
         }
       );
     },
@@ -83,11 +95,11 @@ export default {
         }
       }
       },50)
-      // console.info(this.nowpage,this.allpage)
+      console.info(this.nowpage,this.allpage)
       if(Number(tempPage+1)>=Number(this.allpage)){
         this.nowpage=0
       }else{
-        this.nowpage=tempPage+1
+        _this.nowpage=tempPage+1
       }
     }
   }

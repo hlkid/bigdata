@@ -160,7 +160,7 @@ export default {
                 text-align: center;
                 line-height: 34px;
                 border-radius: 5px;
-                font-size: 16px;
+                font-size: 24px;
                 font-weight: bold;
                 float: left;
                 margin-right: 8px;
