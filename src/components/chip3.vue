@@ -1,7 +1,7 @@
 <template>
   <div class="chipBox chip3 box-s">
     <div class="tu clearfloat box-s">
-      <img :src="libroomInfo.cover" alt="">
+      <img :src="libroomInfo.cover" alt="" style="border-radius:5px;">
     </div>
     <div class="bottomtit cleafloat box-s over">
       {{news.title}}{{news.content}}

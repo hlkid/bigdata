@@ -5,7 +5,7 @@
           活动预告
       </div>
       <div style="width:100%;float:left">
-        <img class="imgLogo" :src="activitylist.actCover"/>
+        <img class="imgLogo" :src="activitylist.actCover" style="border-radius:5px;"/>
         <div class="msgBox">
           <div class="mainTitle">{{activitylist.actName}}</div>
           <div class="subTitle">发布时间：{{activitylist.publishTime}}</div>

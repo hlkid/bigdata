@@ -4,8 +4,8 @@
          <span class="line fl"></span>
          <p class="tit fl">宣传视频</p>
       </div>   
-      <div class="video clearfloat">
-        <video :src="videoSrc" width="365" height="205" autoplay controls loop></video>
+      <div class="video clearfloat" style="border-radius:5px;">
+        <video :src="videoSrc" width="365" height="205" autoplay controls loop style="border-radius:5px;"></video>
       </div>
   </div>
 </template>
