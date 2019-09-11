@@ -16,7 +16,7 @@ import { ajaxCallback } from "../js/common.js";
 export default {
     data(){
         return {
-            videoSrc: 'http://vfx.mtime.cn/Video/2019/02/04/mp4/190204084208765161.mp4'     //获取视频播放资源
+            videoSrc: ''     //获取视频播放资源
         }
     },
     mounted(){
@@ -29,7 +29,7 @@ export default {
           
         }
         ajaxCallback( libBaseInfo, true, params, "GET", function(res) {
-            console.log(res)
+            _this.videoSrc = res.data.libroomInfo.libVideoURL;
           }
         );
       },

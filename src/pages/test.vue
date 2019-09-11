@@ -1,11 +1,11 @@
 <template>
   <div>
-      <chip3></chip3>
+      <chip8></chip8>
   </div>
 </template>
 
 <script>
-import chip3 from "../components/chip3.vue";
+import chip8 from "../components/chip8.vue";
 
 export default {
     data(){
@@ -13,7 +13,7 @@ export default {
             
         }
     },
-    components: {chip3},
+    components: {chip8},
 }
 </script>
 
