@@ -89,8 +89,8 @@ export default {
       let _this = this;
       ajaxCallback( readersAnasis, true, "", "GET", function(res) {
           // console.log("1111",res);
-          _this.cardAll=res.data.readerCount.readersCount;
-          _this.cardNow=res.data.readerCount.pastCount;
+          _this.cardAll=res.data.readerCount.pastCount;
+          _this.cardNow=res.data.readerCount.readersCount;
           let allcount=0;
           let countList=res.data.ageStatics;
           for(let i=0;i<countList.length;i++){

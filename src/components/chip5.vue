@@ -81,6 +81,7 @@ var option1 = {
     // boundaryGap值为false的时候，折线第一个点在y轴上
     // boundaryGap: false,
     data: [
+      "7:00",
       "8:00",
       "9:00",
       "10:00",
